@@ -16,6 +16,8 @@ deps.JS = {
 			"js/namespace.js",
 			// Config file
 			"js/config.js",
+
+			"js/md5.js",	
 			
 			// --------------------
 			// ------  Views ------
@@ -23,6 +25,8 @@ deps.JS = {
 			"js/view/error_view.js",
 			"js/view/notfound_view.js",
 			"js/view/home_view.js",
+
+			"js/view/user/login_view.js",			
 
 			// router
 			"js/router.js",
