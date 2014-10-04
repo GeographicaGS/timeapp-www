@@ -16,6 +16,7 @@ app.router = Backbone.Router.extend({
             "login" : "login",
             "logout" : "logout",
             "user/time_sheet" : "timeSheet",
+            "user/week" : "week",
 
             /* Sample usage: http://example.com/#about */
             "*other"    : "defaultRoute"
@@ -52,6 +53,9 @@ app.router = Backbone.Router.extend({
     },
     timeSheet: function(){
         app.showView(new app.view.User.TimeSheet());
+    },
+    week: function(){
+        app.showView(new app.view.User.Week());
     }
     
 });

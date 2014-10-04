@@ -15,6 +15,7 @@
 @orange : #ff9000;
 @white :#fff;
 
+@black:#27272e;
 @pink:#ff3366;
 @blue2:#018be2;
 @dark_blue:#10069f;
@@ -25,6 +26,8 @@
 @grey6:#cacbcc;
 @grey7:#e9eaea;
 @grey8:#e9eaea;
+@grey9:#ccccce;
+@grey10:#808086;
 @green2:#009966;
 @orange2:#ff3300;
 @yellow2:#cc9900;
@@ -71,12 +74,15 @@ input[placeholder]{
 .grey2 { color:@grey2;}
 
 
+black{ color: @black;}
 grey3{ color: @grey3;}
 grey4{ color: @grey4;}
 grey5{ color: @grey5;}
 grey6{ color: @grey6;}
 grey7{ color: @grey7;}
 grey8{ color: @grey8;}
+grey9{ color: @grey9;}
+grey10{ color: @grey9;}
 pink{ color: @pink;}
 blue2{ color: @blue2;}
 dark_blue{ color: @dark_blue;}
