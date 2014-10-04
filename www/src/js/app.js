@@ -119,15 +119,21 @@ app.closeLogin = function () {
 };
 
 app.doLogin = function (user, success, error) {
+    $("#login").remove();
+    this.login = null;
+    app.router.navigate("home",{trigger: true});
 
     this.user = user;
 
     $.ajax({
         url: app.config.API_URL + "/users/islogged",
-        success: function () {
-            localStorage.setItem("user", JSON.stringify(user));
-            if (success) {
-                success();
+
+        success: function(usercomplete){
+            app.user = usercomplete;
+            app.user["password"] = user["password"];
+            localStorage.setItem("user",JSON.stringify(app.user));
+            if (success){
+                success();    
             }
         },
         error: function (jqxhr, settings, exception) {

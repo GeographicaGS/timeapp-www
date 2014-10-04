@@ -7,6 +7,7 @@ deps.JS = {
 			"js/lib/jquery-2.0.3.min.js",
 			"js/lib/underscore-min.js",
 			"js/lib/backbone-min.js",
+			"js/lib/date-utils.min.js"
 		],
 		desc: "Third party library"
 	}
@@ -29,6 +30,8 @@ deps.JS = {
             "js/view/section_header_view.js",
 			"js/view/user/login_view.js",	
             "js/view/user/menu_view.js",	
+			"js/view/user/login_view.js",
+			"js/view/user/time_sheet_view.js",			
 			// router
 			"js/router.js",
 			// app
@@ -52,6 +55,7 @@ deps.CSS = {
 			"css/home.css",
             "css/menu.css",
             "css/animations.css",
+            "css/timeSheet.css",
 		]
 	}
 };

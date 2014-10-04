@@ -15,6 +15,11 @@ app.router = Backbone.Router.extend({
             "error" : "error",
             "login" : "login",
             "logout" : "logout",
+<<<<<<< HEAD
+=======
+            "user/time_sheet" : "timeSheet",
+
+>>>>>>> 375a7dcdeb26d6a8bf840b111abb5f54536782da
             /* Sample usage: http://example.com/#about */
             "*other"    : "defaultRoute"
             /* This is a default route that also uses a *splat. Consider the
@@ -46,6 +51,9 @@ app.router = Backbone.Router.extend({
     },
     logout: function(){
         app.logout();
+    },
+    timeSheet: function(){
+        app.showView(new app.view.User.TimeSheet());
     }
     
 });
