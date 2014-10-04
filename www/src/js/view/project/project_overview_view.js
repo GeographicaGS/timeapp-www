@@ -1,8 +1,7 @@
-app.view.NotFound = Backbone.View.extend({
-    _template : _.template( $('#notfound_template').html() ),
+app.view.Project.Overview = Backbone.View.extend({
+    _template : _.template( $('#project_overview_template').html() ),
     
     initialize: function() {
-        app.events.trigger("menu","");
         this.render();
     },
     
@@ -12,7 +11,7 @@ app.view.NotFound = Backbone.View.extend({
     },
     
     render: function() {
-        
+        this._section_header = new app.view.Section_Header();
         this.$el.html(this._template());
         return this;
     }

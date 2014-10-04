@@ -23,7 +23,8 @@ deps.JS = {
 			"js/view/error_view.js",
 			"js/view/notfound_view.js",
 			"js/view/home_view.js",
-
+            "js/view/project/project_overview_view.js",
+            "js/view/section_header_view.js",
 			// router
 			"js/router.js",
 			// app
@@ -45,6 +46,7 @@ deps.CSS = {
 			"css/lib/WWW-Styles/base.css",
 			"css/styles.css",
 			"css/home.css",
+            "css/animations.css",
 		]
 	}
 };
@@ -52,4 +54,3 @@ deps.CSS = {
 if (typeof exports !== 'undefined') {
 	exports.deps = deps;
 }
-

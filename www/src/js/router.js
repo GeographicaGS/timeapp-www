@@ -8,7 +8,7 @@ app.router = Backbone.Router.extend({
 
     /* define the route and function maps for this router */
     routes: {
-            "" : "home",
+            "" : "project_overview",
             "notfound" : "notfound",
             "faq" : "faq",
             "error" : "error",
@@ -24,11 +24,12 @@ app.router = Backbone.Router.extend({
     initialize: function(options) {
         this.route(this.langRoutes["_link home"][app.lang], "home");
     },
-    
+    project_overview: function(){
+        app.showView(new app.view.Project.Overview());
+    },
     home: function(){
         app.showView(new app.view.Home());
     },
-
     defaultRoute: function(){
         app.showView(new app.view.NotFound());
     },
@@ -39,6 +40,5 @@ app.router = Backbone.Router.extend({
 
     error: function(){
         app.showView(new app.view.Error());
-    }
-    
+    } 
 });

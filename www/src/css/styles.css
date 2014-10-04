@@ -11,7 +11,7 @@
 @red: #d60006;
 @yellow : #fdc300;
 @blue : #2b85d0;
-@green : #669900;
+@green : #82B600;
 @orange : #ff9000;
 @white :#fff;
 
@@ -21,6 +21,11 @@ body {
 	color:@grey;
 	font-size:16px;
 	line-height:24px;
+}
+
+header{
+    height: 65px;
+    background-color: @green;
 }
 
 p,span,div,table{
@@ -155,3 +160,39 @@ input[placeholder]{
 .text_bold{ .roboto(bold);}
 
 .uppercase{ text-transform: uppercase;}
+
+.menu-btn{
+    margin: 20px;
+    float: left;
+}
+.user-name{
+    float: left;
+    font-size: 22px;
+    
+}
+
+nav{
+    color: @white;
+    position: relative;
+}
+
+nav span{
+    display: block;
+    margin-top: 20px;
+}
+
+.new-proyect{
+    width: 180px;
+    position: absolute;
+    left: ~"calc(50% - 90px);"
+}
+
+.new-proyect .txt-16{
+    font-size: 16px;
+    
+}
+
+.section_info_header{
+    height: 130px;
+    background-color: @white;
+}
