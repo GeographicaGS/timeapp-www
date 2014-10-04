@@ -51,7 +51,7 @@ app.router = Backbone.Router.extend({
         app.logout();
     },
     timeSheet: function(){
-        app.showView(new app.view.User.TimeSheet);
+        app.showView(new app.view.User.TimeSheet());
     }
     
 });
