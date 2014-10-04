@@ -14,6 +14,7 @@ app.router = Backbone.Router.extend({
             "faq" : "faq",
             "error" : "error",
             "login" : "login",
+            "logout" : "logout",
             
             /* Sample usage: http://example.com/#about */
             "*other"    : "defaultRoute"
@@ -44,6 +45,9 @@ app.router = Backbone.Router.extend({
     },
     login: function(){
         app.showLogin();
+    },
+    logout: function(){
+        app.logout();
     }
     
 });

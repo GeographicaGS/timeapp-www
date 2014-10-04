@@ -100,6 +100,10 @@ app.ini = function(){
 };
 
 app.showLogin = function(){
+    if (app.isUserLogged()){
+        app.router.navigate("home",{trigger: true});
+        return;
+    }
     this.login = new app.view.User.Login();
 
     $("body").prepend(this.login.el);
@@ -130,6 +134,18 @@ app.doLogin = function(user,success,error){
     });
 }
 
+app.isUserLogged = function(){
+    return localStorage.getItem("user")!= null; 
+}
+
+app.logout = function(){
+    localStorage.removeItem("user"); 
+    app.showLogin();
+    if (this.currentView){
+      this.currentView.close();
+    }
+}
+
 app.getAuthHeaders = function(){
     if (this.user){
         var timestamp = new Date().getTime();
@@ -157,8 +173,6 @@ app.setAjaxSetup = function(){
             }
         }
     });
-
-   
 }
 
 app.showView = function(view) {
