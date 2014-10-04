@@ -15,11 +15,15 @@ String.prototype.endsWith = function(suffix) {
 
 $(function() {
     
-    $(document).ajaxError(function(event, jqxhr, settings, exception) {
+     $(document).ajaxError(function(event, jqxhr, settings, exception) {
         if (jqxhr.status == 404) {
             app.router.navigate("notfound",{trigger: true});
         } 
-        else {
+        else if (jqxhr.status == 401){
+            localStorage.removeItem("user");
+            app.router.navigate("login",{trigger: true});
+        }
+        else { 
             app.router.navigate("error",{trigger: true});
         }
     });
@@ -71,10 +75,91 @@ app.ini = function(){
 
     this.$main = $("main");
 
+    this.setAjaxSetup();
+
     //Backbone.history.start();root: "/public/search/"
     Backbone.history.start({pushState: true,root: this.basePath });
 
+    //check if user us logged in
+
+    var user = localStorage.getItem("user");
+    if (user){
+        this.user = JSON.parse(user);
+        // check user is really logged in
+        this.doLogin(this.user,null,function(){
+            // something was bad
+            app.router.navigate("login",{trigger: true});
+        });
+        
+    }
+    else{
+        // GO directly to login
+        app.router.navigate("login",{trigger: true});
+    }
+
 };
+
+app.showLogin = function(){
+    this.login = new app.view.User.Login();
+
+    $("body").prepend(this.login.el);
+}
+
+app.closeLogin = function(){
+    this.login.close();
+}
+
+app.doLogin = function(user,success,error){
+    
+    this.user = user;
+
+    $.ajax({
+        url: app.config.API_URL + "/users/islogged",
+        success: function(){
+            localStorage.setItem("user",JSON.stringify(user));
+            if (success){
+                success();    
+            }
+        },
+        error: function(jqxhr, settings, exception){
+            localStorage.removeItem("user");    
+            if (jqxhr.status == 401){
+                error();
+            }
+        }
+    });
+}
+
+app.getAuthHeaders = function(){
+    if (this.user){
+        var timestamp = new Date().getTime();
+
+        return {
+            "auth-username" : this.user.username,
+            "auth-timestamp" : timestamp,
+            "auth-hash" : md5(this.user.username+this.user.password+timestamp)
+        }
+    }
+    else{
+        return {}
+    }
+    
+}
+
+app.setAjaxSetup = function(){
+  
+    $.ajaxSetup({
+        headers: app.getAuthHeaders,
+        beforeSend: function(xhr) {
+            headers = app.getAuthHeaders();
+            for (h in headers){
+                xhr.setRequestHeader(h, headers[h]);
+            }
+        }
+    });
+
+   
+}
 
 app.showView = function(view) {
     if (this.currentView){

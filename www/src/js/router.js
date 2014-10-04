@@ -4,6 +4,7 @@ app.router = Backbone.Router.extend({
     
     langRoutes : {
         "_link home" : {"en":"home","es": "inicio" },
+
     },
 
     /* define the route and function maps for this router */
@@ -12,13 +13,13 @@ app.router = Backbone.Router.extend({
             "notfound" : "notfound",
             "faq" : "faq",
             "error" : "error",
+            "login" : "login",
             
             /* Sample usage: http://example.com/#about */
             "*other"    : "defaultRoute"
             /* This is a default route that also uses a *splat. Consider the
             default route a wildcard for URLs that are either not matched or where
             the user has incorrectly typed in a route path manually */
-        
     },
 
     initialize: function(options) {
@@ -40,5 +41,9 @@ app.router = Backbone.Router.extend({
 
     error: function(){
         app.showView(new app.view.Error());
-    } 
+    },
+    login: function(){
+        app.showLogin();
+    }
+    
 });
