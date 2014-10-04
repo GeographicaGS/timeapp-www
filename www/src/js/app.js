@@ -111,6 +111,9 @@ app.showLogin = function(){
 
 app.closeLogin = function(){
     this.login.close();
+    $("#login").remove();
+    this.login = null;
+    app.router.navigate("home",{trigger: true});
 }
 
 app.doLogin = function(user,success,error){
@@ -119,8 +122,10 @@ app.doLogin = function(user,success,error){
 
     $.ajax({
         url: app.config.API_URL + "/users/islogged",
-        success: function(){
-            localStorage.setItem("user",JSON.stringify(user));
+        success: function(usercomplete){
+            app.user = usercomplete;
+            app.user["password"] = user["password"];
+            localStorage.setItem("user",JSON.stringify(app.user));
             if (success){
                 success();    
             }

@@ -7,6 +7,7 @@ deps.JS = {
 			"js/lib/jquery-2.0.3.min.js",
 			"js/lib/underscore-min.js",
 			"js/lib/backbone-min.js",
+			"js/lib/date-utils.min.js"
 		],
 		desc: "Third party library"
 	}
