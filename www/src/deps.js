@@ -27,7 +27,8 @@ deps.JS = {
 			"js/view/home_view.js",
             "js/view/project/project_overview_view.js",
             "js/view/section_header_view.js",
-			"js/view/user/login_view.js",			
+			"js/view/user/login_view.js",	
+            "js/view/user/menu_view.js",	
 			// router
 			"js/router.js",
 			// app
@@ -49,6 +50,7 @@ deps.CSS = {
 			"css/lib/WWW-Styles/base.css",
 			"css/styles.css",
 			"css/home.css",
+            "css/nuevo.css",
             "css/animations.css",
 		]
 	}

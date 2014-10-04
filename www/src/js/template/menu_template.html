@@ -1,0 +1,57 @@
+<div class='container sidebar-menu'>
+    <div class='row'>
+        <div class="btn-group-vertical col-xs-12 col-sm-12">
+            <ul class="content">
+                <li class="btn btn-default-menu">
+                    <% if(app.customerIsLogged()){ %> 
+                    <a href="/logout" class="menu-item menu-item-login" jslink>
+                        Log Out
+                        <% } else { %>
+                        <a href="/login" class="menu-item menu-item-login" jslink>
+                            Log In
+                            <% } %>
+                        </a>
+                </li>
+                <li class="btn btn-default-menu">
+                    <a href="/" class="menu-item menu-item-home" jslink>
+                        Home
+                    </a>
+                </li>
+                <li class="btn btn-default-menu">
+                    <a href="/account" target="_blank" class="menu-item menu-item-account" jslink>
+                        Account
+                    </a>
+                </li>
+                <li class="btn btn-default-menu">
+                    <a href="/my_library" target="_blank" class="menu-item menu-item-mylibrary" jslink>
+                        My Library
+                    </a>
+                </li>
+                <li class="btn btn-default-menu">
+                    <a href="/wishlist" target="_blank" class="menu-item menu-item-wishlist" jslink>
+                        Wishlist
+                    </a>
+                </li>
+                <li class="btn btn-default-menu">
+                    <a href="../shopping_cart.php" target="_blank" class="menu-item menu-item-cart">
+                        Cart (<span class="cart_total_items">0</span>)
+                    </a>
+                </li>
+                <li class="btn btn-classic">
+                    <a href="" class="btn-classic-link">
+                        Classic Version
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <% if (!app.customerIsLogged()){ %>
+    <div class='row sidebar-menu-bottom-row'>
+        <div class="col-xs-12 col-md-12 text-center">
+            <a href="../login.php" target="_blank" class="btn btn-default btn-action btn-default-menu-register">
+                Create Account &#x279e;
+            </a>
+        </div>
+    </div>
+    <% } %>
+</div>

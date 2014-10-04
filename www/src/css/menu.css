@@ -1,0 +1,91 @@
+/* 
+    Styles for menu
+    Created on : 04-oct-2014, 16:02:51
+    Author     : Pablo García
+*/
+
+#menu{
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: -265px;
+    width: 265px;
+    height: 100%;
+    background-color: @brown;
+    z-index:200;	
+}
+
+#menu li{
+    display: block;
+}
+
+#menu li.btn-default-menu{
+    text-align: left;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    border-bottom: 1px solid @red_milano;
+    height: 48px;
+    line-height: 48px;
+    border-radius: 0px;
+}
+
+#menu li.btn-classic{
+    text-align: left;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    height: 48px;
+    line-height: 48px;
+    border-radius: 0px;
+}
+
+#menu li.btn-classic a{
+    display: block;
+    padding-left: 10px;
+    color: @yellow;
+    font-size: 16px;
+}
+
+#menu li.btn-default-menu a{
+    display: block;
+    padding-left: 10px;
+    color: @yellow;
+    font-weight: bold;
+    font-size: 16px;
+}
+
+#menu li.btn-default-menu a:hover{
+
+    color: @yellow;
+    font-weight: bold;
+}
+
+.menu-item-login{
+    //background-image: url('/m/img/');
+}
+
+.menu-item-home{
+    background: url('/m/img/DTm_icon_menu_home.svg') no-repeat 10px 8px;
+    padding-left: 45px !important;
+}
+
+.menu-item-account{
+    background: url('/m/img/DTm_icon_menu_cuenta.svg') no-repeat 9px 8px;
+    padding-left: 45px !important;
+}
+
+.menu-item-mylibrary{
+    background: url('/m/img/DTm_icon_menu_mibiblio.svg') no-repeat 11px 8px;
+    padding-left: 45px !important;
+}
+
+.menu-item-wishlist{
+    background: url('/m/img/DTm_icon_menu_deseos.svg') no-repeat 9px 8px;
+    padding-left: 45px !important;
+}
+
+.menu-item-cart{
+    background: url('/m/img/DTm_icon_menu_carro.svg') no-repeat 8px 8px;
+    padding-left: 45px !important;
+}
