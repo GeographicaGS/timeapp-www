@@ -4,88 +4,66 @@
     Author     : Pablo García
 */
 
+@green: #82B600;
+@white: #ffffff;
+@green_light: #9BC63A;
+
 #menu{
     position: absolute;
-    top: 0;
+    top: -777px;
     bottom: 0;
-    left: -265px;
-    width: 265px;
-    height: 100%;
-    background-color: @brown;
-    z-index:200;	
-}
+    width: 300px;
+    height: 0px;
+    background-color: @green;
+    z-index:5;
 
-#menu li{
-    display: block;
-}
+    .container{
+        width: 300px;
 
-#menu li.btn-default-menu{
-    text-align: left;
-    width: 100%;
-    padding: 0;
-    margin: 0;
-    border-bottom: 1px solid @red_milano;
-    height: 48px;
-    line-height: 48px;
-    border-radius: 0px;
-}
+        li{
+            color: @white;
+            display: block;
+            font-size: 17px;
+            text-align: left;
+            width: 100%;
+            padding: 0;
+            margin: 0;
+            border-bottom: 1px solid @green_light;
+            height: 48px;
+            line-height: 48px;
+            border-radius: 0px;
 
-#menu li.btn-classic{
-    text-align: left;
-    width: 100%;
-    padding: 0;
-    margin: 0;
-    height: 48px;
-    line-height: 48px;
-    border-radius: 0px;
-}
+            a.menu-item{
+                padding-left: 65px;
+            }
 
-#menu li.btn-classic a{
-    display: block;
-    padding-left: 10px;
-    color: @yellow;
-    font-size: 16px;
-}
+            a.menu-item-login{
+                //background-image: url('/m/img/');
+            }
 
-#menu li.btn-default-menu a{
-    display: block;
-    padding-left: 10px;
-    color: @yellow;
-    font-weight: bold;
-    font-size: 16px;
-}
+            a.menu-item-home{
+                //background: url('/m/img/DTm_icon_menu_home.svg') no-repeat 10px 8px;
+            }
 
-#menu li.btn-default-menu a:hover{
+            a.menu-item-account{
+                //background: url('/m/img/DTm_icon_menu_cuenta.svg') no-repeat 9px 8px;
+            }
 
-    color: @yellow;
-    font-weight: bold;
-}
+            a.menu-item-mylibrary{
+                //background: url('/m/img/DTm_icon_menu_mibiblio.svg') no-repeat 11px 8px;
+            }
 
-.menu-item-login{
-    //background-image: url('/m/img/');
-}
+            a.menu-item-wishlist{
+                //background: url('/m/img/DTm_icon_menu_deseos.svg') no-repeat 9px 8px;
+            }
 
-.menu-item-home{
-    background: url('/m/img/DTm_icon_menu_home.svg') no-repeat 10px 8px;
-    padding-left: 45px !important;
-}
-
-.menu-item-account{
-    background: url('/m/img/DTm_icon_menu_cuenta.svg') no-repeat 9px 8px;
-    padding-left: 45px !important;
-}
-
-.menu-item-mylibrary{
-    background: url('/m/img/DTm_icon_menu_mibiblio.svg') no-repeat 11px 8px;
-    padding-left: 45px !important;
-}
-
-.menu-item-wishlist{
-    background: url('/m/img/DTm_icon_menu_deseos.svg') no-repeat 9px 8px;
-    padding-left: 45px !important;
-}
-
-.menu-item-cart{
-    background: url('/m/img/DTm_icon_menu_carro.svg') no-repeat 8px 8px;
-    padding-left: 45px !important;
+            a.menu-item-cart{
+                //background: url('/m/img/DTm_icon_menu_carro.svg') no-repeat 8px 8px;
+            }
+        }
+        li.white{
+            color: @green;
+            background-color: @white;
+        }
+    }
 }

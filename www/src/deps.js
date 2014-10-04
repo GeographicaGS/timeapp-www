@@ -50,7 +50,7 @@ deps.CSS = {
 			"css/lib/WWW-Styles/base.css",
 			"css/styles.css",
 			"css/home.css",
-            "css/nuevo.css",
+            "css/menu.css",
             "css/animations.css",
 		]
 	}

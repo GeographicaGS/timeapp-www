@@ -15,7 +15,6 @@ app.router = Backbone.Router.extend({
             "error" : "error",
             "login" : "login",
             "logout" : "logout",
-            
             /* Sample usage: http://example.com/#about */
             "*other"    : "defaultRoute"
             /* This is a default route that also uses a *splat. Consider the
@@ -35,7 +34,6 @@ app.router = Backbone.Router.extend({
     defaultRoute: function(){
         app.showView(new app.view.NotFound());
     },
-
     notfound: function(){
         app.showView(new app.view.NotFound());
     },

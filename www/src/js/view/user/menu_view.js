@@ -4,9 +4,6 @@ app.view.Menu = Backbone.View.extend({
 		this.render();
 		app.events.on('menu:toggle', app.toggleMenu, this);
 	},
-	events: {
-		'click .menu-item': app.toggleMenu
-	},
 	render: function(){
 		this.$el.html(this._template());
 		$('#menu').html(this.$el);

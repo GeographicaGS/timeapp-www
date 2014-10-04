@@ -1,57 +1,53 @@
-<div class='container sidebar-menu'>
+<div class='container'>
     <div class='row'>
-        <div class="btn-group-vertical col-xs-12 col-sm-12">
+        <div class="btn-group-vertical">
             <ul class="content">
-                <li class="btn btn-default-menu">
-                    <% if(app.customerIsLogged()){ %> 
-                    <a href="/logout" class="menu-item menu-item-login" jslink>
-                        Log Out
-                        <% } else { %>
-                        <a href="/login" class="menu-item menu-item-login" jslink>
-                            Log In
-                            <% } %>
-                        </a>
-                </li>
-                <li class="btn btn-default-menu">
-                    <a href="/" class="menu-item menu-item-home" jslink>
-                        Home
+                <li class="white">    
+                    <a href="<%=app.lang%>/proyectos" class="menu-item menu-item-login" jslink>
+                        Proyectos
                     </a>
                 </li>
-                <li class="btn btn-default-menu">
-                    <a href="/account" target="_blank" class="menu-item menu-item-account" jslink>
-                        Account
-                    </a>
+                <li>    
+                    <a href="<%=app.lang%>/equipo" class="menu-item menu-item-login" jslink>
+                        Equipo
+                    </a>    
                 </li>
-                <li class="btn btn-default-menu">
-                    <a href="/my_library" target="_blank" class="menu-item menu-item-mylibrary" jslink>
-                        My Library
-                    </a>
+                <li>    
+                    <a href="<%=app.lang%>/revisiones" class="menu-item menu-item-login" jslink>
+                        Revisiones semanales
+                    </a>    
                 </li>
-                <li class="btn btn-default-menu">
-                    <a href="/wishlist" target="_blank" class="menu-item menu-item-wishlist" jslink>
-                        Wishlist
-                    </a>
+                <li>    
+                    <a href="<%=app.lang%>/estadisticas" class="menu-item menu-item-login" jslink>
+                        Estadísticas
+                    </a>    
                 </li>
-                <li class="btn btn-default-menu">
-                    <a href="../shopping_cart.php" target="_blank" class="menu-item menu-item-cart">
-                        Cart (<span class="cart_total_items">0</span>)
-                    </a>
+                <li>    
+                    <a href="<%=app.lang%>/calendario" class="menu-item menu-item-login" jslink>
+                        Calendario
+                    </a>    
                 </li>
-                <li class="btn btn-classic">
-                    <a href="" class="btn-classic-link">
-                        Classic Version
-                    </a>
+                <li>    
+                    <a href="<%=app.lang%>/envios" class="menu-item menu-item-login" jslink>
+                        Mis envíos semanales
+                    </a>    
+                </li>
+                <li>    
+                    <a href="<%=app.lang%>/perfil" class="menu-item menu-item-login" jslink>
+                        Perfil
+                    </a>    
+                </li>
+                <li>    
+                    <a href="<%=app.lang%>/about" class="menu-item menu-item-login" jslink>
+                        Sobre App
+                    </a>    
+                </li>
+                <li class="btn btn-default-menu">    
+                    <a href="<%=app.lang%>/logout" class="menu-item menu-item-login" jslink>
+                        Cerrar sesión
+                    </a>    
                 </li>
             </ul>
         </div>
     </div>
-    <% if (!app.customerIsLogged()){ %>
-    <div class='row sidebar-menu-bottom-row'>
-        <div class="col-xs-12 col-md-12 text-center">
-            <a href="../login.php" target="_blank" class="btn btn-default btn-action btn-default-menu-register">
-                Create Account &#x279e;
-            </a>
-        </div>
-    </div>
-    <% } %>
 </div>

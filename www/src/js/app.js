@@ -39,10 +39,10 @@ $(function () {
             app.router.navigate($(this).attr("href").substring(3), {trigger: true});
         }
     });
-    
-    $('.menu-btn').on('click', function(e){
+
+    $('.menu-btn, .menu-item').on('click', function (e) {
         e.preventDefault();
-        trigger("menu:open");
+        app.events.trigger("menu:toggle");
     });
 
     app.ini();
@@ -52,6 +52,8 @@ $(function () {
     });
 
     app.resizeMe();
+
+    this._menuView = new app.view.Menu();
 
 });
 
@@ -100,13 +102,11 @@ app.ini = function () {
         // GO directly to login
         app.router.navigate("login", {trigger: true});
     }
-
 };
 
-
-app.showLogin = function(){
-    if (app.isUserLogged()){
-        app.router.navigate("home",{trigger: true});
+app.showLogin = function () {
+    if (app.isUserLogged()) {
+        app.router.navigate("home", {trigger: true});
         return;
     }
     this.login = new app.view.User.Login();
@@ -139,20 +139,20 @@ app.doLogin = function (user, success, error) {
     });
 };
 
-app.isUserLogged = function(){
-    return localStorage.getItem("user")!= null; 
+app.isUserLogged = function () {
+    return localStorage.getItem("user") != null;
 }
 
-app.logout = function(){
-    localStorage.removeItem("user"); 
+app.logout = function () {
+    localStorage.removeItem("user");
     app.showLogin();
-    if (this.currentView){
-      this.currentView.close();
+    if (this.currentView) {
+        this.currentView.close();
     }
 }
 
-app.getAuthHeaders = function(){
-    if (this.user){
+app.getAuthHeaders = function () {
+    if (this.user) {
         var timestamp = new Date().getTime();
 
         return {
@@ -283,22 +283,10 @@ app.renameID = function (array, oldID, newID) {
 };
 
 app.toggleMenu = function () {
-    if ($('#menu').hasClass('menuOpen')) {
-        $('#wrapper').removeClass('pushToRight').addClass('pushToLeft');
-        $('header').removeClass('pushToRight').addClass('pushToLeft');
-        $('main').removeClass('pushToRight').addClass('pushToLeft');
-        $('#menu').removeClass('menuOpen').addClass('menuClose');
+    if ($('#menu').hasClass('expandOpen')) {
+        $('#menu').removeClass().addClass('expandClose');
     }
-    else if ($('#menu').hasClass('menuClose')) {
-        $('#wrapper').removeClass('pushToLeft').addClass('pushToRight');
-        $('header').removeClass('pushToLeft').addClass('pushToRight');
-        $('main').removeClass('pushToLeft').addClass('pushToRight');
-        $('#menu').removeClass('menuClose').addClass('menuOpen');
-    }
-    else {
-        $('#wrapper').addClass('pushToRight');
-        $('header').removeClass('pushToLeft').addClass('pushToRight');
-        $('main').addClass('pushToRight');
-        $('#menu').addClass('menuOpen');
+    else if ($('#menu').hasClass('expandClose') || typeof $('#menu').attr('class') === 'undefined' ) {
+        $('#menu').removeClass().addClass('expandOpen');
     }
 };
