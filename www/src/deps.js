@@ -31,7 +31,8 @@ deps.JS = {
 			"js/view/user/login_view.js",	
             "js/view/user/menu_view.js",	
 			"js/view/user/login_view.js",
-			"js/view/user/time_sheet_view.js",			
+			"js/view/user/time_sheet_view.js",	
+			"js/view/user/week_view.js",	
 			// router
 			"js/router.js",
 			// app

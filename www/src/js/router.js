@@ -18,6 +18,7 @@ app.router = Backbone.Router.extend({
 <<<<<<< HEAD
 =======
             "user/time_sheet" : "timeSheet",
+            "user/week" : "week",
 
 >>>>>>> 375a7dcdeb26d6a8bf840b111abb5f54536782da
             /* Sample usage: http://example.com/#about */
@@ -54,6 +55,9 @@ app.router = Backbone.Router.extend({
     },
     timeSheet: function(){
         app.showView(new app.view.User.TimeSheet());
+    },
+    week: function(){
+        app.showView(new app.view.User.Week());
     }
     
 });
