@@ -1,0 +1,27 @@
+<% 
+i = -1;
+_.each(model.members, function(member){ 
+    i++;
+    console.log(member);
+    user = app.userlist.getUserByid(member.id_user);
+    console.log(user);
+%>
+<li>
+    <ul>
+        <li>
+            <%= user.get("name") + " " + user.get("surname") %>
+        </li>
+        <li class="hourlyrate" <%= model.type_rate == 1 ? "style='display:none'" : "" %>>
+            <label><lang>Hourly rate</lang></label>
+            <input type="number" data-member-idx="<%= i %>"
+                placeholder="<lang>Type a hourly rate</lang>"
+                value="<%= member.hourly_rate %>" />
+        </li>
+        <li>
+            <a href="#" class="remove_member" data-member-idx="<%= i %>"><lang>Remove</lang></a>
+        </li>
+
+    </ul>
+</li>
+
+<% }); %>

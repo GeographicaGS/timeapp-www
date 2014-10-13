@@ -1,0 +1,13 @@
+<ul>
+<% _.each(projects,function(p){ %>
+    <li>
+        <a href="/<lang>lang</lang>/projects/<%= p.slug %>" jslink>
+            <ul>
+                <li>
+                    <%= p.name %>
+                </li>
+            </ul>
+        </a>
+    </li>
+<% }); %>
+</ul>

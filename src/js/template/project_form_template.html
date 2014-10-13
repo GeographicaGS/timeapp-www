@@ -1,0 +1,51 @@
+<h1>
+<lang>New Project</lang>
+</h1>
+
+<form>
+    <label><lang>Name</lang></label>
+
+    <input type="text" data-model value="<%= model.name %>" name="name"
+        placeholder="<lang>Type a name to identify the project</lang>" />
+    <br/>
+
+    <% 
+    console.log(model);
+    if (!model._id) { %>
+    <label><lang>Budget</lang></label>
+    <input type="number" data-model name="budget" min="0" max="5" value="" />
+    <br/>
+    <% } %>
+
+    <select data-model name="type_rate" >
+        <option value=1 <%= model.type_rate == 1 ? "selected" : ""%>><lang>Same hourly rate for all members</lang></option>
+        <option value=2 <%= model.type_rate == 2 ? "selected" : ""%>><lang>Hourly rate for each member</lang></option>
+    </select>
+    <br/>
+
+    <input data-model type="number" name="hourly_rate"  min="0" value="<%= model.hourly_rate %>" 
+        <%= model.type_rate == 2 ? "style='display:none'" : ""%> />   
+    <br/>
+
+    <input list="allusers" name="addmember">
+    <a href="#" id="addmember">+ <lang>Add</lang></a>
+    
+    <br/>
+
+    <datalist id="allusers">
+       
+    </datalist> 
+
+    <ul id="members">
+
+    </ul>
+
+</form>
+
+<a class="button" href="" id="save">
+    <lang>Crear proyecto</lang>
+</a>
+
+<a class="cancel" href="">
+    <lang>Cancel</lang>
+</a>

@@ -1,9 +1,6 @@
-[submodule "www/src/js/WWW-Builder"]
-	path = www/src/js/WWW-Builder
-	url = https://github.com/GeographicaGS/WWW-Builder.git
-[submodule "www/src/css/lib/WWW-Styles"]
-	path = www/src/css/lib/WWW-Styles
+[submodule "src/css/lib/WWW-Styles"]
+	path = src/css/lib/WWW-Styles
 	url = https://github.com/GeographicaGS/WWW-Styles.git
-[submodule "www/src/js/lib/WWW-Builder"]
-	path = www/src/js/lib/WWW-Builder
+[submodule "src/js/lib/WWW-Builder"]
+	path = src/js/lib/WWW-Builder
 	url = https://github.com/GeographicaGS/WWW-Builder.git

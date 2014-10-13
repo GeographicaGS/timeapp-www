@@ -1,0 +1,33 @@
+<div class="mb25">
+	<div class="weekLine"></div>
+	<p class="weekNumber">SEMANA <%= date.getWeekNumber() + " " + date.getFullYear() %>  (Pendiente)</p>
+</div>
+
+<% 
+dateloop = new Date(date);
+for(var i=0; i<7; i++){
+    
+    %>
+	<div class="mb50">
+		<p class="weekDate">
+            <%= days[dateloop.getDay()] + ", " + dateloop.getDate() 
+                + " " + months[dateloop.getMonth()] + " " + dateloop.getFullYear()%>
+        </p>
+		<div class="circle"></div>
+		<div class="timeLine">
+            <% for (var j=0;j<weektime[i].projects.length;j++) { %>
+                <a href="#" class="projtime" data-date="<%= date %>" data-day=<%=i%> data-proj-idx=<%=j%>>
+                    <%= app.formatNumber(weektime[i].projects[j].nhours,0) %>
+                </a>
+            <% } %>
+      
+            <a href="#" class="ctrl_addtime" data-date="<%= date %>">
+                +
+            </a>      
+        </div>
+		<div class="clear"></div>
+	</div>
+<%
+	dateloop.setDate(dateloop.getDate() + 1);
+}
+%>
