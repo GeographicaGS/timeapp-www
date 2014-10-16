@@ -15,7 +15,7 @@ app.collection.User.List = Backbone.Collection.extend({
     getUserByid : function(id){
         
         for (var i=0;i<this.length;i++){
-            if (this.at(i).get("_id") == id){
+            if (this.at(i).id == id){
                 return this.at(i);
             }
         }

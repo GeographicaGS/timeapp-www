@@ -26,6 +26,6 @@ app.model.Time = Backbone.Model.extend({
     },
 
     urlRoot: function() {
-        return app.config.API_URL + "/timesheet/time";
+        return app.config.API_URL + "/timesheets/time";
     }
 });

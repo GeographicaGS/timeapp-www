@@ -1,50 +1,56 @@
-<div class='container'>
-    <div class='row'>
+<div class="container">
+    <div class="row">
         <div class="btn-group-vertical">
-            <ul class="content">
-                <li class="white">    
-                    <a href="<%=app.lang%>/projects" class="menu-item menu-item-login" jslink>
-                        Proyectos
-                    </a>
-                </li>
-                <li>    
+            <ul class="content" >
+                <% 
+                if (app.user.profile >= app.cons.ST_PROFILE_ADMIN) { %>
+                  
+                    <li class="selected">    
+                        <a href="<%=app.lang%>/projects" class="menu-item" data-menu="projects" jslink>
+                            <lang>Projects</lang>
+                        </a>
+                    </li>
+                    <li>    
+                        <a href="<%=app.lang%>/weeks" class="menu-item"  data-menu="weeks" jslink>
+                            <lang>Revisiones semanales</lang>
+                        </a>    
+                    </li>
+
+                <% } %>
+               <!--  <li>    
                     <a href="<%=app.lang%>/equipo" class="menu-item menu-item-login" jslink>
                         Equipo
                     </a>    
-                </li>
-                <li>    
-                    <a href="<%=app.lang%>/revisiones" class="menu-item menu-item-login" jslink>
-                        Revisiones semanales
-                    </a>    
-                </li>
-                <li>    
+                </li> -->
+                
+               <!--  <li>    
                     <a href="<%=app.lang%>/estadisticas" class="menu-item menu-item-login" jslink>
                         Estadísticas
                     </a>    
-                </li>
+                </li> -->
                 <li>    
-                    <a href="<%=app.lang%>/calendario" class="menu-item menu-item-login" jslink>
-                        Calendario
+                    <a href="<%=app.lang%>/users/timesheet" class="menu-item" data-menu="timesheet" jslink>
+                        <lang>Timesheet</lang>
                     </a>    
                 </li>
                 <li>    
-                    <a href="<%=app.lang%>/envios" class="menu-item menu-item-login" jslink>
-                        Mis envíos semanales
+                    <a href="<%=app.lang%>/weeks/me" class="menu-item" data-menu="userweeks" jslink>
+                        <lang>Weekly deliveries</lang>
                     </a>    
                 </li>
-                <li>    
+                <!-- <li>    
                     <a href="<%=app.lang%>/perfil" class="menu-item menu-item-login" jslink>
                         Perfil
                     </a>    
-                </li>
-                <li>    
+                </li> -->
+                <!-- <li>    
                     <a href="<%=app.lang%>/about" class="menu-item menu-item-login" jslink>
                         Sobre App
                     </a>    
-                </li>
+                </li> -->
                 <li class="btn btn-default-menu">    
-                    <a href="<%=app.lang%>/logout" class="menu-item menu-item-login" jslink>
-                        Cerrar sesión
+                    <a href="<%=app.lang%>/logout" class="menu-item" data-menu="logout" jslink>
+                        <lang>Logout</lang>
                     </a>    
                 </li>
             </ul>

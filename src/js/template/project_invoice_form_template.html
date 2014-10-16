@@ -1,0 +1,30 @@
+<form>
+    
+    <label><lang>Amount</lang></label><br/>
+    <input type="number" name="amount" value="<%= model.amount %>"/><br/>
+
+    <label><lang>Invoice REF</lang></label><br/>
+    <input type="text" name="ref" placeholder="<lang>REF</lang>" value="<%= model.ref %>"/><br/>
+
+
+    <label><lang>Description</lang></label><br/>
+    <input type="text" name="desc" placeholder="<lang>Description</lang>" value="<%= model.desc %>"/><br/>
+
+    <label><lang>Date</lang></label><br/>
+    <input type="date" name="date" placeholder="dd/mm/YYYY" value="<%= model.date ? moment(model.date).format('YYYY-MM-DD') : "" %>"/>
+
+</form>
+
+<a href="#" id="save">
+    <lang>Guardar</lang>
+</a>
+
+<% if (model.id) { %>
+    <a href="#" id="remove">
+        <lang>Remove</lang>
+    </a>
+<% } %>
+
+<a href="#" id="cancel">
+    <lang>Cancelar</lang>
+</a>

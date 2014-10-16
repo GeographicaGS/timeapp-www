@@ -1,6 +1,6 @@
 <form>
 
-    <h6><%= model.date %> </h6>
+    <h6><%= model.date.format("dddd, DD MMM YYYY") %> </h6>
     <label><lang>Project</lang></label>
     <select name="id_project" <%= model.id ? "disabled" : ""%>>
         <% _.each(projects,function(p){  %>
@@ -20,7 +20,7 @@
         Delete
     </a>
     <% } %>
-    <a href="#" id="addtime">
+    <a href="#" id="save">
         <% if (!model.id) { %>
         + <lang>Add time</lang>
         <% } else { %>

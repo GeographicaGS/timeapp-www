@@ -20,6 +20,7 @@ $(function () {
         }
         else if (jqxhr.status == 401) {
             localStorage.removeItem("user");
+            app.nextRoute = "users/timesheet";
             app.router.navigate("login", {trigger: true});
         }
         else {
@@ -53,7 +54,7 @@ $(function () {
 
     app.resizeMe();
 
-    this._menuView = new app.view.Menu();
+    
 
 });
 
@@ -81,71 +82,80 @@ app.ini = function () {
 
     this.$main = $("main");
 
+    this.login = new app.view.User.Login();
+
     this.setAjaxSetup();
 
-    //Backbone.history.start();root: "/public/search/"
-    
-
     //check if user us logged in
-
     var user = localStorage.getItem("user");
     if (user) {
         this.user = JSON.parse(user);
         // check user is really logged in
-        this.doLogin(this.user, null, function () {
+        this.doLogin(this.user, function () {
             // something was bad
             app.router.navigate("login", {trigger: true});
         });
 
-        app.userlist = new app.collection.User.List();
-        app.userlist.fetch({
-            "success" : function(){
-                Backbone.history.start({pushState: true, root: app.basePath});
-            }
-        });
-
-
     }
     else {
+        $("#loadingstart").hide();
         // GO directly to login
         app.router.navigate("login", {trigger: true});
-        Backbone.history.start({pushState: true, root: this.basePath});
     }
-
-    
 };
 
-app.showLogin = function () {
-    if (app.isUserLogged()) {
-        app.router.navigate("home", {trigger: true});
-        return;
-    }
-    this.login = new app.view.User.Login();
+app.loginComplete = function(){
 
-    $("body").prepend(this.login.el);
+    this.userlist = new app.collection.User.List();
+    this.userlist.fetch({
+        "success" : function(){
+            if (!Backbone.History.started){
+                Backbone.history.start({pushState: true, root: app.basePath});    
+            }
+            $("#topusername").html(app.user.name + " " + app.user.surname);
+            if (app._menuView){
+                app._menuView.render();    
+            }
+            else{
+                app._menuView = new app.view.Menu();    
+            }
+            
+            app.closeLogin();
+
+            if (Backbone.history.fragment===undefined || Backbone.history.fragment==="undefined" 
+                || Backbone.history.fragment==="logout" || Backbone.history.fragment==="login"){
+                app.router.navigate("users/timesheet",{trigger: true});
+            }
+           
+
+        }
+    });
+}
+
+app.showLogin = function () {
+    if (!app.isUserLogged()) {
+        app.login.$el.show();
+    }
 };
 
 app.closeLogin = function () {
-    this.login.close();
+    app.login.$el.hide();
+    $("#loadingstart").hide();
 };
 
-app.doLogin = function (user, success, error) {
-    $("#login").remove();
-    this.login = null;
-    app.router.navigate("home",{trigger: true});
-
+app.doLogin = function (user, error) {
+   
     this.user = user;
 
     $.ajax({
         url: app.config.API_URL + "/users/islogged",
 
         success: function(usercomplete){
+
             app.user = usercomplete;
             app.user["password"] = user["password"];
             localStorage.setItem("user",JSON.stringify(app.user));
-            if (success){
-                success();    
-            }
+            app.loginComplete();
         },
         error: function (jqxhr, settings, exception) {
             localStorage.removeItem("user");
@@ -213,10 +223,6 @@ app.events = {};
 
 _.extend(app.events, Backbone.Events);
 
-app.events.on("menu", function (id) {
-
-});
-
 app.scrollTop = function () {
     var body = $("html, body");
     body.animate({scrollTop: 0}, '500', 'swing', function () {
@@ -230,48 +236,11 @@ app.scrollToEl = function ($el) {
     }, 500);
 };
 
-
 app.nl2br = function nl2br(str, is_xhtml) {
     var breakTag = (is_xhtml || typeof is_xhtml === 'undefined') ? '<br />' : '<br>';
     return (str + '').replace(/([^>\r\n]?)(\r\n|\n\r|\r|\n)/g, '$1' + breakTag + '$2');
 };
 
-// Tue, 25 Feb 2014 22:32:40 GMT
-app.dateFormat = function (dateStr) {
-    var date = new Date(dateStr);
-
-    var month = date.getMonth() + 1; //Months are zero based
-    var day = date.getUTCDate();
-    var year = date.getFullYear();
-
-    if (day < 10)
-        day = "0" + day;
-    if (month < 10)
-        month = "0" + month;
-    return day + "/" + month + "/" + year;
-};
-
-/* dateStr must be a date in GMT Tue, 25 Feb 2014 22:32:40 GMT*/
-app.dateTimeFormat = function (dateStr) {
-    var date = new Date(dateStr);
-
-    var month = date.getMonth() + 1; //Months are zero based
-    var day = date.getUTCDate();
-    var year = date.getFullYear();
-    var hours = date.getHours();
-    var minutes = date.getMinutes();
-
-    if (month < 10)
-        month = "0" + month;
-    if (day < 10)
-        day = "0" + day;
-    if (hours < 10)
-        hours = "0" + hours;
-    if (minutes < 10)
-        minutes = "0" + minutes;
-
-    return day + "/" + month + "/" + year + " - " + hours + ":" + minutes;
-};
 
 app.urlify = function (text, attr) {
     if (!text) {
@@ -297,15 +266,6 @@ app.renameID = function (array, oldID, newID) {
         delete array[i][oldID];
     }
     return array;
-};
-
-app.toggleMenu = function () {
-    if ($('#menu').hasClass('expandOpen')) {
-        $('#menu').removeClass().addClass('expandClose');
-    }
-    else if ($('#menu').hasClass('expandClose') || typeof $('#menu').attr('class') === 'undefined' ) {
-        $('#menu').removeClass().addClass('expandOpen');
-    }
 };
 
 app.input = function(str){
@@ -349,12 +309,68 @@ app.formatNumber = function (n,decimals){
     }
 };
 
-app.getDay = function(dateObject){
-    var day = dateObject.getDay() - 1;
+app.cons = {
+   
+    "ST_PROJECT_OPEN" : 1,
+    "ST_PROJECT_ARCHIVE" : 2,
 
-    if (day == -1)
-        day = 6;
+    "ST_USER_ENABLE" : 1,
+    "ST_USER_DISABLE" : 2,
 
-    return day;
+    "ST_PROFILE_CLIENT" : 1,
+    "ST_PROFILE_USER" : 2,
+    "ST_PROFILE_ADMIN" : 3,
 
+    "ST_WEEK_PENDING" : 1,
+    "ST_WEEK_SENT" : 2,
+    "ST_WEEK_REJECTED" : 3,
+    "ST_WEEK_ACCEPTED" : 4,
+}
+
+app.weekStatusToStr = function(status){
+    switch(status){
+        case app.cons.ST_WEEK_PENDING:
+            return "<lang>Pending</lang>"
+        case app.cons.ST_WEEK_SENT:
+            return "<lang>Sent</lang>"
+        case app.cons.ST_WEEK_REJECTED:
+            return "<lang>Rejected</lang>"
+        case app.cons.ST_WEEK_ACCEPTED:
+            return "<lang>Accepted</lang>"
+
+        default:
+            return "Unknown status";
+    }
+}
+
+app.fancyboxOpts = function(){
+
+    return   {
+        //padding : 0,
+        //autoHeight : false,
+        //autoSize : false,
+        // width : "90%",
+        // maxWidth : 960,
+        //closeBtn : true,
+        modal : true,
+        helpers : {
+            overlay : {
+                css : {
+                    'background' : 'rgba(255, 255, 255, 0.85)'
+                }
+            }
+        }
+    }  
+};
+
+app.escapeHtml = function(text) {
+  var map = {
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;',
+    '"': '&quot;',
+    "'": '&#039;'
+  };
+
+  return text.replace(/[&<>"']/g, function(m) { return map[m]; });
 }

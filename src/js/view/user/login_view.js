@@ -1,6 +1,8 @@
 app.view.User.Login = Backbone.View.extend({
-    id: "login",
+
     _template : _.template( $('#login_template').html() ),
+
+    el : "#login",
 
     events: {
         "click input[type='button']" : "doLogin"
@@ -22,9 +24,6 @@ app.view.User.Login = Backbone.View.extend({
         app.doLogin({
             username: this.$("input[name='username']").val(),
             password: md5(this.$("input[name='password']").val())
-        },
-        function(){
-            app.closeLogin();
         },
         function(){
             self.$(".error").show();

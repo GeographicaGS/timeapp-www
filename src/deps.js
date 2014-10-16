@@ -7,8 +7,9 @@ deps.JS = {
 			"js/lib/jquery-2.0.3.min.js",
 			"js/lib/underscore-min.js",
 			"js/lib/backbone-min.js",
-			"js/lib/date-utils.min.js",
-			"js/lib/sprintf.min.js"
+			"js/lib/moment.min.js",
+			"js/lib/sprintf.min.js",
+			"js/lib/fancybox/source/jquery.fancybox.pack.js"
 			// "js/lib/validator.min.js"
 		],
 		desc: "Third party library"
@@ -30,6 +31,11 @@ deps.JS = {
 			"js/model/user_model.js",
 			"js/model/project_model.js",
 			"js/model/time_model.js",
+			"js/model/week_model.js",
+			"js/model/admin_week_model.js",
+			"js/model/project_spend_model.js",
+			"js/model/project_invoice_model.js",
+			"js/model/project_budget_model.js",
 
 			// ---------------------
 			// ---  Collections  ---
@@ -38,6 +44,7 @@ deps.JS = {
 			"js/collection/user/user_projects_collection.js",
 			"js/collection/user/timesheet_collection.js",
 			"js/collection/project/list_project_collection.js",
+			"js/collection/week/list_weeks_collection.js",
 
 			
 			// ---------------------
@@ -45,20 +52,27 @@ deps.JS = {
 			// ---------------------
 			"js/view/error_view.js",
 			"js/view/notfound_view.js",
-			"js/view/home_view.js",
+	
 			"js/view/section_header_view.js",
 			// Projects
 			"js/view/project/project_form_view.js",
-            "js/view/project/project_overview_view.js",
             "js/view/project/project_list_view.js",
             "js/view/project/project_detail_view.js",
+            "js/view/project/project_spending_form_view.js",
+            "js/view/project/project_invoice_form_view.js",
+            "js/view/project/project_budget_form_view.js",
             // User
 			"js/view/user/login_view.js",	
             "js/view/user/menu_view.js",	
 			"js/view/user/login_view.js",
 			"js/view/user/timesheet_view.js",	
-			"js/view/user/timesheet_addtime_view.js",
-			"js/view/user/week_view.js",	
+			"js/view/user/timesheet_formtime_view.js",
+			"js/view/user/timesheet_sendweek_view.js",
+			"js/view/user/timesheet_week_view.js",	
+			// Week
+			"js/view/week/week_list_view.js",	
+			"js/view/week/week_detail_view.js",	
+
 			// router
 			"js/router.js",
 
@@ -72,7 +86,7 @@ deps.JS = {
 deps.CSS = {
 	ThirdParty:{
 		src : [
-			
+			"js/lib/fancybox/source/jquery.fancybox.css",
 		]
 	},
 	Core: {

@@ -2,22 +2,40 @@ var days = ["Domingo","Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sáb
 var months = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Nomviembre", "Diciembre"];
 
 app.view.User.Week = Backbone.View.extend({
-    _template : _.template( $('#week_template').html() ),
+    _template : _.template( $('#timesheet_week_template').html() ),
 
     events: {
         "click .projtime" : "showProject",
-        "click .ctrl_addtime": "showAddTime"
+        "click .ctrl_addtime": "showAddTime",
+        "click .sendweek": "sendWeek"
     },
     
     initialize: function(options) {
-        this.date = options.date; 
+        this.date = moment(options.date); 
+        this.year = this.date.isoWeekYear();
+        this.week = this.date.isoWeek();
         this.userprojects = options.userprojects;
-        this.collection = new app.collection.User.WeekTimesheet({},{ week : this.date.getWeekNumber()});
+
+        this.collection = new app.collection.User.WeekTimesheet({},{
+            year : this.year,
+            week : this.week
+        });
         this.listenTo(this.collection,"reset",this.render);
-        this.collection.fetch({reset: true});
+
+        this.weekModel = new app.model.Week({
+            "year" : this.year,
+            "week": this.week
+        });
 
         var _this = this;
-        app.events.on("timesheet:week:" + this.date.getWeekNumber()+":change",function(){
+
+        this.weekModel.fetch({
+            success: function(model,response){
+                _this.collection.fetch({reset: true});
+            }
+        });
+
+        app.events.on("timesheet:week:" + this.year + "_" + this.week + ":change",function(){
             _this.refresh();
         });
     },
@@ -27,6 +45,10 @@ app.view.User.Week = Backbone.View.extend({
         this.stopListening();
         if (this.addTimeView){
             this.addTimeView.close();
+        }
+
+        if (this.sendWeekView){
+            this.sendWeekView.close();
         }
     },
 
@@ -39,7 +61,8 @@ app.view.User.Week = Backbone.View.extend({
     render: function() {
         this.$el.html(this._template({
             date:this.date,
-            weektime: this.collection.toJSON() 
+            weektime: this.collection.toJSON(),
+            dataweek: this.weekModel.toJSON()
         }));
         return this;
     },
@@ -51,14 +74,15 @@ app.view.User.Week = Backbone.View.extend({
 
         if (this.addTimeView) this.addTimeView.close();
 
-        var day = app.getDay(this.date);
-        var dayprojects = _.pluck(this.collection.toJSON()[day].projects,"id_project");
+        var date = moment($e.attr("data-date"));
+        var day = date.isoWeekday();
+        var dayprojects = _.pluck(this.collection.toJSON()[day-1].projects,"id_project");
         var availableprojects = _.filter(this.userprojects.toJSON(),function (p) { return dayprojects.indexOf(p._id)==-1; });
 
-        this.addTimeView = new app.view.User.TimeSheetAddTime({
+        this.addTimeView = new app.view.User.TimeSheetFormTime({
             projects : availableprojects ,
             model: new app.model.Time({
-                date: new Date($e.attr("data-date"))
+                date: date
             })
         });
 
@@ -69,16 +93,16 @@ app.view.User.Week = Backbone.View.extend({
         e.preventDefault();
 
         var $e = $(e.target),
-            day = $e.attr("data-day"),
+            day_idx = $e.attr("data-day"),
             proj_idx = $e.attr("data-proj-idx");
 
         if (this.addTimeView) this.addTimeView.close();
 
-        var projtime = this.collection.at(day).get("projects")[proj_idx];
+        var projtime = this.collection.at(day_idx).get("projects")[proj_idx];
         
         var model = new app.model.Time({
             id: projtime.id,
-            date: new Date($e.attr("data-date")),
+            date: moment($e.attr("data-date")),
             id_project : projtime.id_project,
             hours : parseInt(projtime.nhours),
             minutes : parseInt(projtime.nhours % 1 * 60)
@@ -86,12 +110,20 @@ app.view.User.Week = Backbone.View.extend({
 
         var availableprojects = _.filter(this.userprojects.toJSON(),function (p) { return p._id == projtime.id_project; });
 
-        this.addTimeView = new app.view.User.TimeSheetAddTime({
+        this.addTimeView = new app.view.User.TimeSheetFormTime({
             projects : availableprojects ,
             model: model
         });
 
         $("#addtime").html(this.addTimeView.el);
-    }   
+    },
+
+    sendWeek: function(e){
+        e.preventDefault();
+
+        this.sendWeekView = new app.view.User.TimeSheetSendWeek({
+            model: this.weekModel 
+        });
+    }
 
 });

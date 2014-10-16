@@ -1,0 +1,26 @@
+<form>
+    
+    <label><lang>Amount</lang></label><br/>
+    <input type="number" name="amount" value="<%= model.amount %>"/><br/>
+
+    <label><lang>Description</lang></label><br/>
+    <input type="text" name="desc" placeholder="<lang>Description</lang>" value="<%= model.desc %>"/><br/>
+
+    <label><lang>Date</lang></label><br/>
+    <input type="date" name="date" placeholder="dd/mm/YYYY" value="<%= model.date ? moment(model.date).format('YYYY-MM-DD') : "" %>"/>
+
+</form>
+
+<a href="#" id="savebudget">
+    <lang>Guardar</lang>
+</a>
+
+<% if (model.id) { %>
+<a href="#" id="removebudget">
+    <lang>Remove</lang>
+</a>
+<% } %>
+
+<a href="#" id="cancel">
+    <lang>Cancelar</lang>
+</a>

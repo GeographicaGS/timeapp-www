@@ -1,0 +1,51 @@
+<p>
+    <%= app.userlist.getUserByid(week.id_user).cn() %>
+</p>
+<p>
+    Week: <%= week.week %><br/>
+    Year: <%= week.year %><br/>
+</p>
+
+<h6><lang>Summary</lang></h6>
+<ul>
+    <% _.each(week.timesbyproject,function(w){ %>
+        <li>
+            <span><%= w.projectname %>:</span>
+            <span><%= w.total%></span>
+        </li>
+    <% })%>
+</ul>
+
+<% if (week.notes.length>0) { %>
+<h6><lang>Comments</lang></h6>
+<ul>
+    <%
+    _.each(week.notes,function(note){ %>
+        <li>
+            <h6>
+                <%= app.userlist.getUserByid(note.id_user).cn() %>
+                -
+                <%= moment(note.date).format("YYYY-MM-DD HH:mm") %>
+            </h6>
+            <p><%= app.nl2br(app.escapeHtml(note.note)) %></p>
+        </li>
+    <% }) %>
+    
+</ul>
+<% } %>
+
+<p><lang>This action cannot be undone. Please <strong>be sure</strong> the data you're uploading is correct</lang></p>
+<label><lang>Comment</lang></label><br/>
+<textarea name="newnote"></textarea>
+
+<br/><br/>
+<a href="#" id="acceptweek">
+    <lang>Accept</lang>
+</a>
+
+<a href="#" id="rejectweek">
+    <lang>Reject</lang>
+</a>
+
+
+

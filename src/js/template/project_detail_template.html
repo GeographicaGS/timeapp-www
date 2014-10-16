@@ -2,6 +2,99 @@
     <%= project.name%>
 </p>
 
+<label><lang>Current balance</lang></label><br/>
+<span><%= app.formatNumber(project.total_budget - project.total_hours_price - project.total_spendings) %>&euro;</span>
+
+<h6><lang>Budgets</lang></h6>
+
+<ul>
+<%_.each(project.budgets,function(b){ %>
+    <li>
+        <a href="#" data-budget="<%=b.id %>">
+            <ul>
+                <li><%= !b.desc ? "<lang>Initial budget</lang>" : b.desc %></li>
+                <li><%= parseInt(b.amount) %></li>
+            </ul>
+        </a>
+    </li>
+<% }); %>
+<li>
+    <ul>
+        <li>Total</li>
+        <li><%= project.total_budget %></li>
+    </ul>
+</li>
+</ul>
+
+<a href="#" id="addbudget">
+    + <lang>Add budget</lang>
+</a>
+
+<h6><lang>Expenses</lang></h6>
+<ul>
+    <% _.each(project.spendings,function(sp){ %>
+        <li>
+            <a href="#" data-spending="<%=sp.id %>">
+                <ul>
+                    <li><%= sp.desc + " " + sp.date%></li>
+                    <li><%= sp.amount %>&euro;</li>
+                </ul>
+            </a>
+        </li>
+    <% }); %>
+    <li>
+        <ul>
+            <li>Total</li>
+            <li><%= project.total_spendings %>&euro;</li>
+        </ul>
+    </li>
+</ul>
+
+<a href="#" id="addspending">
+    + <lang>Add spending</lang>
+</a>
+
+
+<h6><lang>Invoices</lang></h6>
+<ul>
+    <% _.each(project.invoices,function(iv){ %>
+        <li>
+            <a href="#" data-invoice="<%=iv.id %>">
+                <ul>
+                    <li><%= iv.ref + " " + iv.desc + " " + iv.date %></li>
+                    <li><%= iv.amount %>&euro;</li>
+                </ul>
+            </a>
+        </li>
+    <% }); %>
+     <li>
+        <ul>
+            <li>Total</li>
+            <li><%= project.total_invoices %>&euro;</li>
+        </ul>
+    </li>
+</ul>
+<a href="#" id="addinvoice">
+    + <lang>Add invoice</lang>
+</a>
+
+<h6>
+<lang>Usuarios</lang>
+</h6>
+
+<ul>
+<% _.each(project.members,function(m){ %>
+    <li>
+        <ul>
+            <li><%= app.userlist.getUserByid(m.id_user).cn() %></li>
+            <% if (m.type_rate == 2) { %>
+                <li><%= m.hourly_rate %> &euro;</li>
+            <% } %>
+        </ul>
+    <li>
+<% }) %>
+</ul>
+
 <a href="/<lang>lang</lang>/projects/form/<%= project.slug%>" jslink>
 Editar
 </a>

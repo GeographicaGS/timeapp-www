@@ -1,8 +1,8 @@
-app.view.User.TimeSheetAddTime = Backbone.View.extend({
-    _template : _.template( $('#timesheet_addtime_template').html() ),
+app.view.User.TimeSheetFormTime = Backbone.View.extend({
+    _template : _.template( $('#timesheet_formtime_template').html() ),
 
     events: {
-        "click #addtime": "save",
+        "click #save": "save",
         "click #cancel_addtime": "hide",
         "click #deletetime": "delete"
     },
@@ -47,7 +47,10 @@ app.view.User.TimeSheetAddTime = Backbone.View.extend({
             var _this = this;
             this.model.save(null,{
                 success: function(){
-                    app.events.trigger("timesheet:week:" + _this.model.get("date").getWeekNumber()+":change");
+                    var date = _this.model.get("date"),
+                        year = date.isoWeekYear(),
+                        week = date.isoWeek();
+                    app.events.trigger("timesheet:week:" + year + "_" + week+":change");
                 }
             });
            
@@ -66,7 +69,10 @@ app.view.User.TimeSheetAddTime = Backbone.View.extend({
         var _this = this;
         this.model.destroy({
             success: function(){
-                app.events.trigger("timesheet:week:" + _this.model.get("date").getWeekNumber()+":change");
+                var date = _this.model.get("date"),
+                    year = date.isoWeekYear(),
+                    week = date.isoWeek();
+                app.events.trigger("timesheet:week:" + year + "_" + week+":change");
             }
         });
     }

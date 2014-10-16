@@ -62,9 +62,9 @@
 
 #addtime{
 	z-index: 3;
-	position: absolute;
+	position: fixed;
 	right: 10px;
-	top:10px;
+	top:70px;
 	background-color: #fff;
 	width: 400px;
 }

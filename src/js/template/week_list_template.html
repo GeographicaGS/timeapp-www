@@ -1,0 +1,13 @@
+<ul>
+    <%_.each(weeks,function(week){ %>
+    <li>
+        <a href="/<%= app.lang%>/weeks/<%= week._id %>" jslink>
+            <ul>
+                <li><%= app.userlist.getUserByid(week.id_user).cn() %></li>
+                <li>Week <%= week.week  + " " + week.year %></li>
+                <li><%= week.date_send %></li>
+            </ul>
+        </a>
+    </li>
+    <% }) %>
+</ul>
