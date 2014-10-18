@@ -15,6 +15,7 @@ app.view.User.Week = Backbone.View.extend({
         this.year = this.date.isoWeekYear();
         this.week = this.date.isoWeek();
         this.userprojects = options.userprojects;
+        this.parentView = options.parentView;
 
         this.collection = new app.collection.User.WeekTimesheet({},{
             year : this.year,
@@ -80,6 +81,8 @@ app.view.User.Week = Backbone.View.extend({
             }
         }
 
+        this.parentView.delegateEvents();
+        
         return this;
     },
 
