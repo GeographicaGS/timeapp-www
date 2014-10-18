@@ -2,11 +2,17 @@ app.collection.Week.List = Backbone.Collection.extend({
     model: app.model.Week,
 
     initialize: function(models,options) {
-        this._status = options && options.status ? options.status : null;
+        this._status = options.status;
+        this._user = options.user;
     },
     
     url : function() {
-        return app.config.API_URL + "/weeks/list?status=" + this._status;
+        if (!this._user){
+            return app.config.API_URL + "/weeks/list?status=" + this._status;    
+        }
+        else{
+            return app.config.API_URL + "/weeks/user/list?status=" + this._status;
+        }
     },
 
     parse: function(response){

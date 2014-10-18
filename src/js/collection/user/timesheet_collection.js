@@ -6,7 +6,7 @@ app.collection.User.WeekTimesheet = Backbone.Collection.extend({
     },
     
     url : function() {
-        return app.config.API_URL + "/timesheets/week/" + this._year + "/" + this._week ;
+        return app.config.API_URL + "/timesheets/userweek/" + this._year + "/" + this._week ;
     },
 
     parse: function(response){

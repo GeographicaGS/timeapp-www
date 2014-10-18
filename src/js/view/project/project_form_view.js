@@ -169,11 +169,16 @@ app.view.Project.Form = Backbone.View.extend({
 
     deleteMember: function(e){
         e.preventDefault();
-        var $e = $(e.target),
-            idx = $e.attr("data-member-idx"),
-            members = this.model.get("members"),
-            member = members.at(idx);
-        
-        members.remove(member);
+
+        var r = confirm("Are you sure?");
+
+        if (r){
+            var $e = $(e.target),
+                idx = $e.attr("data-member-idx"),
+                members = this.model.get("members"),
+                member = members.at(idx);
+
+            members.remove(member);
+        }
     }
 });

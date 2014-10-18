@@ -66,14 +66,20 @@ app.view.User.TimeSheetFormTime = Backbone.View.extend({
     delete: function(e){
         e.preventDefault();
 
-        var _this = this;
-        this.model.destroy({
-            success: function(){
-                var date = _this.model.get("date"),
-                    year = date.isoWeekYear(),
-                    week = date.isoWeek();
-                app.events.trigger("timesheet:week:" + year + "_" + week+":change");
-            }
-        });
+        var r = confirm("Are you sure?");
+
+        if (r){
+            var _this = this;
+            this.model.destroy({
+                success: function(){
+                    var date = _this.model.get("date"),
+                        year = date.isoWeekYear(),
+                        week = date.isoWeek();
+                    app.events.trigger("timesheet:week:" + year + "_" + week+":change");
+                }
+            });
+        }
+
+       
     }
 });

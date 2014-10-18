@@ -10,12 +10,12 @@
 @grey2: #5e5e62;
 @red: #d60006;
 @yellow : #fdc300;
-@blue : #2b85d0;
-@green : #82B600;
+@blue : #003399;
+@green: #82b600;
 @orange : #ff9000;
 @white :#fff;
+@black: #27272e;
 
-@black:#27272e;
 @pink:#ff3366;
 @blue2:#018be2;
 @dark_blue:#10069f;
@@ -28,20 +28,19 @@
 @grey8:#e9eaea;
 @grey9:#ccccce;
 @grey10:#808086;
+@grey11 : #55555d;
 @green2:#009966;
 @orange2:#ff3300;
 @yellow2:#cc9900;
 
-
-
-
-
 html, body{ height:100%;}
 body {
 	.roboto();
-	color:@grey;
-	font-size:16px;
-	line-height:24px;
+	color:@black;
+	font-size:14px;
+	line-height:18px;
+    background-color: #eeeeee;
+    
 }
 
 header{
@@ -238,7 +237,7 @@ nav span{
 }
 
 #login{
-	background-color: #ccc;
+	background-color: #eeeeee;
 	position: fixed;
 	width: 100%;
 	height: 100%;
@@ -251,9 +250,40 @@ nav span{
 		/* top: 0; */
 		/* bottom: 0; */
 		vertical-align: middle;
+
+        label{
+            display: block;
+            margin-bottom: 8px;
+            margin-top: 20px;
+            text-align: left;
+            .roboto(bold);
+        }
+        input{
+            width: 300px;
+
+            &[type='button']{
+                margin-top: 20px;
+                border: 1px solid #ccc;
+                .roboto(bold);
+            }
+        }
+
+        > div{
+            background: url("../img/GEO_LOG_BI_RGB.png") no-repeat right top;
+            background-size: 150px 40px;
+            width: 300px;
+            margin:auto;
+            padding-top: 2px;
+        }
+
+        .error{
+            color: @red;
+            text-align: left;
+            font-size: 14px;
+            margin-top: 15px;
+        }
 	}
 }
-
 
 #loadingstart{
     background-color: #ccc;
@@ -271,6 +301,144 @@ nav span{
     }
 }
 
-.invalid{
-    border:1px solid @red;
+label{
+    color:@grey11;
 }
+.invalid{
+    border:1px solid @red !important;
+}
+
+select, input {
+    height: 46px;
+    line-height: 46px;
+    border:1px solid #dddddf;
+    font-size: 16px;
+    color: @black;
+    background-color: #fff;
+    width: 100%;
+}
+
+select{
+    font-size: 16px;
+    border-radius: 0;
+}
+
+h2{
+    .roboto(light);
+    font-size: 36px;
+    line-height: 40px;
+}
+
+h3{
+    font-size: 22px;
+    .roboto(light)
+}
+
+ul.list{
+    > li{
+        /*ul{
+            display: table;
+            li{
+                display: table-cell;
+            }
+        }*/
+        min-height: 47px;
+        border-bottom:1px solid @grey9;
+        line-height: 47px;
+    }
+
+    .headercol{
+        color: @grey10;
+    }
+
+    .searchlist{
+        background-color: transparent;
+        border: none;
+        padding-left: 10px;
+    }
+    li{
+        text-align: left;
+    }
+
+    select{
+        background-color: transparent;
+        border:none;
+        color: @grey10;
+        font-size: 14px;
+
+        &:focus{
+            outline:0;
+
+        }
+    }
+}
+
+ul.listusers{
+   li{
+        ul{
+            .avatar,.username{
+                display: inline-block;
+                font-size: 16px;
+                vertical-align: middle;
+                margin-right: 7px;
+            }
+
+            .remove_member{
+                color: @red;
+                float:right;
+                margin-right: 10px;
+            }
+
+            input[data-member-idx]{
+                width: 45px;
+                height: 30px;
+                line-height: 30px;
+            }
+
+            .hourlyrate{
+
+                span{
+                    color:@grey11;
+                    &:first-child{
+                        margin-right: 80px;
+                    };
+                }
+            }
+        }
+   }
+}
+
+.button{
+    line-height: 49px;
+    height: 49px;
+    background-color: @green;
+    color:@white;
+    font-size: 16px;
+    .roboto(bold);
+    padding:0 10px;
+    display: inline-block;
+}
+
+.cancel_link{
+    .roboto(light);
+    font-size: 16px;
+    color:@grey10;
+    line-height: 49px;
+    display: inline-block;
+}
+
+.counter{
+    background-color: #55555d;
+    color: #fff;
+    .roboto(bold);
+    padding: 0px 16px;
+    border-radius: 10px;
+    font-size: 14px;
+    line-height: 20px;
+    display: inline-block;
+}
+
+section.header{
+    background-color: @white;
+}
+

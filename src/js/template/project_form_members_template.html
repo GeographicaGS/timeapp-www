@@ -7,17 +7,22 @@ _.each(model.members, function(member){
     console.log(user);
 %>
 <li>
-    <ul>
-        <li>
-            <%= user.get("name") + " " + user.get("surname") %>
+    <ul class="row">
+        <li class="col-xs-4">    
+            <img class="avatar"src="<%= user.gravatar() %>" height="35px" width="35px"/>
+            <span class="username"><%= user.get("name") + " " + user.get("surname") %></span>
         </li>
-        <li class="hourlyrate" <%= model.type_rate == 1 ? "style='display:none'" : "" %>>
-            <label><lang>Hourly rate</lang></label>
-            <input type="number" data-member-idx="<%= i %>"
-                placeholder="<lang>Type a hourly rate</lang>"
-                value="<%= member.hourly_rate %>" />
+
+        <li class="col-xs-6">
+            <div class="hourlyrate" <%= model.type_rate == 1 ? "style='display:none'" : "" %>>
+                <span><lang>Hourly rate</lang></span>
+                <input type="text" data-member-idx="<%= i %>"
+                    placeholder="<lang>Type a hourly rate</lang>"
+                    value="<%= member.hourly_rate %>" />
+                <span>&euro;</span>    
+            </div>
         </li>
-        <li>
+        <li class="col-xs-2">
             <a href="#" class="remove_member" data-member-idx="<%= i %>"><lang>Remove</lang></a>
         </li>
 

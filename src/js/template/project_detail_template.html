@@ -1,6 +1,21 @@
-<p>
-    <%= project.name%>
-</p>
+<div id="projdetail">
+
+<section class="header">
+    <div class="container" >
+        <div class="row">
+            <h2 class="col-xs-12">
+                <%= project.name%>
+            </h2>
+            <div class="col-xs-12 hourssum mb30">
+                <label><lang>Horas consumidas / Horas disponibles</lang></label>
+                <span class="counter"><%= app.formatNumber(project.total_hours,0) %></span>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<div class="container" >
 
 <label><lang>Current balance</lang></label><br/>
 <span><%= app.formatNumber(project.total_budget - project.total_hours_price - project.total_spendings) %>&euro;</span>
@@ -98,3 +113,6 @@
 <a href="/<lang>lang</lang>/projects/form/<%= project.slug%>" jslink>
 Editar
 </a>
+
+</div>
+</div>

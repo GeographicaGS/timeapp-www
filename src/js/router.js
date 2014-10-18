@@ -15,9 +15,9 @@ app.router = Backbone.Router.extend({
             "projects/form(/:slug)": "projectForm",
             "projects" : "projects",
             "projects/:slug" : "projectDetail",
-            "weeks" : "weeks",
-            "weeks/me" : "userWeeks",
-            "weeks/:id" : "weekDetail",
+            "weeks/me(/:status)" : "userWeeks",
+            "weeks/detail/:id" : "weekDetail",
+            "weeks(/:status)" : "weeks",
             /* Sample usage: http://example.com/#about */
             "*other"    : "defaultRoute"
             /* This is a default route that also uses a *splat. Consider the
@@ -72,14 +72,22 @@ app.router = Backbone.Router.extend({
         }));
     },
 
-    weeks: function(){
+    weeks: function(status){
+        if (!status) status = app.cons.ST_WEEK_SENT;
         app.events.trigger("menu","weeks");
-        app.showView(new app.view.Week.List({}));
+        app.showView(new app.view.Week.List({
+            userlist:false,
+            status : status
+        }));
     },
 
-    userWeeks: function(){
+    userWeeks: function(status){
         app.events.trigger("menu","userweeks");
-        app.showView(new app.view.Week.List({}));
+        if (!status) status = 0;
+        app.showView(new app.view.Week.List({
+            userlist:true,
+            status : status
+        }));
     },
 
     weekDetail: function(id){

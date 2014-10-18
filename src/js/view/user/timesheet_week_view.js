@@ -59,11 +59,27 @@ app.view.User.Week = Backbone.View.extend({
     },
  
     render: function() {
+      
+        var weektime = this.collection.toJSON(),
+            maxweekhours = _.max(weektime, function(d){ return d.total_hours; }).total_hours;
+
         this.$el.html(this._template({
             date:this.date,
-            weektime: this.collection.toJSON(),
+            weektime: weektime,
+            maxweekhours : maxweekhours,
             dataweek: this.weekModel.toJSON()
         }));
+
+        var projhourswidth =  $(".timeLine").width() - $(".ctrl_addtime").width() 
+                - $(".totalelements").outerWidth(true) - $(".elements").position().left - 30;
+
+        for (var i=0;i<weektime.length;i++){
+            for (var j=0;j<weektime[i].projects.length;j++){
+                var elwidth = (projhourswidth*weektime[i].projects[j].nhours) / maxweekhours;
+                this.$(".projtime[data-day="+i + "][data-proj-idx="+ j+ "]").width(elwidth);
+            }
+        }
+
         return this;
     },
 

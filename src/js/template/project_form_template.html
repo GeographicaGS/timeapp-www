@@ -1,51 +1,86 @@
-<h1>
-<lang>New Project</lang>
-</h1>
+<div class="container" id="projectform">
 
-<form>
-    <label><lang>Name</lang></label>
+<div class="row">
+    <h3 class="col-xs-12">
+    <%= model._id ? "<lang>Edit Project</lang>" : "<lang>New Project</lang>" %>
+    </h3>
+</div>
 
-    <input type="text" data-model value="<%= model.name %>" name="name"
-        placeholder="<lang>Type a name to identify the project</lang>" />
-    <br/>
+<form class="pt">
+    <div class="row">
+        <div class="col-x6-12 col-md-9">
+            <label class="mt"><lang>Name</lang></label> 
+            <input type="text" class="mt5" data-model value="<%= model.name %>" name="name"
+                placeholder="<lang>Type a name to identify the project</lang>" />
+        </div>
 
-    <% 
-    console.log(model);
-    if (!model._id) { %>
-    <label><lang>Budget</lang></label>
-    <input type="number" data-model name="budget" min="0" max="5" value="" />
-    <br/>
-    <% } %>
+        <div class="col-x6-12 col-md-3">
+            <label class="mt"><lang>Color</lang></label> 
+            <input type="text" class="mt5" data-model value="<%= model.color %>" name="color"
+                placeholder="<lang>Color</lang>" />
+        </div>
 
-    <select data-model name="type_rate" >
-        <option value=1 <%= model.type_rate == 1 ? "selected" : ""%>><lang>Same hourly rate for all members</lang></option>
-        <option value=2 <%= model.type_rate == 2 ? "selected" : ""%>><lang>Hourly rate for each member</lang></option>
-    </select>
-    <br/>
+    </div>
+   
+    <div class="row">
+        
+        <% 
+        if (!model._id) { %>
+        <div class="col-x6-4 col-md-3">
+            <label class="mt"><lang>Budget</lang></label> 
+            <input type="text" class="mt5" data-model name="budget" min="0" max="5" value="" />
+        </div>
+        <% } %>
+        
 
-    <input data-model type="number" name="hourly_rate"  min="0" value="<%= model.hourly_rate %>" 
-        <%= model.type_rate == 2 ? "style='display:none'" : ""%> />   
-    <br/>
+        <div class="col-x6-4 col-md-3">
+            <label class="mt"><lang>Hourly/rate</lang></label> 
+            <select data-model name="type_rate" class="mt5" >
+                <option value=1 <%= model.type_rate == 1 ? "selected" : ""%>><lang>Fix rate</lang></option>
+                <option value=2 <%= model.type_rate == 2 ? "selected" : ""%>><lang>Variable rate for each member</lang></option>
+            </select>
+        </div>
 
-    <input list="allusers" name="addmember">
-    <a href="#" id="addmember">+ <lang>Add</lang></a>
-    
-    <br/>
+        <div class="col-x6-4 col-md-3">
 
-    <datalist id="allusers">
-       
-    </datalist> 
+            <input data-model type="text" name="hourly_rate"  min="0" value="<%= model.hourly_rate %>" 
+                <%= model.type_rate == 2 ? "style='display:none'" : ""%> />   
+            
+        </div>
+    </div>
 
-    <ul id="members">
+    <div class="row">
+        <div class="col-xs-12 col-md-10" style="padding-right:0">
+            <input list="allusers" name="addmember" placeholder="<lang>Search user</lang>">
+        </div>
+        <div class="col-xs-12 col-md-2 nopadding">
+            <a href="#" id="addmember">+ <lang>Add</lang></a>
+        </div>
 
-    </ul>
+        <datalist id="allusers"></datalist> 
+
+    </div>
+
+    <div class="row">
+          <ul id="members" class="list listusers col-xs-12"></ul>
+    </div>
+
+
+
+  
 
 </form>
 
-<a class="button" href="" id="save">
+<a class="button mr" href="" id="save">
+    <% if (model.id) { %>}
     <lang>Crear proyecto</lang>
+    <% } else { %>
+    <lang>Guardar</lang>
+    <% } %>
 </a>
 
-<a class="cancel" href="">
+<a class="cancel_link ml" href="#back" jslink>
     <lang>Cancel</lang>
 </a>
+
+</div>

@@ -14,7 +14,8 @@ app.view.Week.Detail = Backbone.View.extend({
 
     events: {
         "click #acceptweek": "accept",
-        "click #rejectweek" : "reject"
+        "click #rejectweek" : "reject",
+        "click #addcomment" : "addcomment",
     },
     
     onClose: function(){
@@ -56,6 +57,32 @@ app.view.Week.Detail = Backbone.View.extend({
                 app.router.navigate("weeks", {trigger: true});
             }
         );
+    },
+
+    addcomment: function(e){
+        e.preventDefault();
+
+        var note = app.input(this.$("textarea[name='newnote']").val());
+        if (!note){
+            this.$("textarea[name='newnote']").addClass("invalid");
+            return;
+        }
+
+        var _this = this;
+       
+        $.post(app.config.API_URL + "/weeks/addcomment/"+ this.week.id,
+            {
+                comment : note
+            }
+            ,function(){
+                _this.week.fetch({
+                    success: function(){
+                        _this.render();
+                    }
+                });
+            }
+        );
+
     }
 
 

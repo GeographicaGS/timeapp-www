@@ -1,7 +1,14 @@
+<select id="filterweeks">
+    <option value="<%= app.cons.ST_WEEK_SENT %>"><lang>Sent</lang></option>
+    <option value="<%= app.cons.ST_WEEK_ACCEPTED %>"><lang>Accepted</lang></option>
+    <option value="<%= app.cons.ST_WEEK_REJECTED %>"><lang>Rejected</lang></option>
+    <option value="0"><lang>All</lang></option>
+</select>
+
 <ul>
     <%_.each(weeks,function(week){ %>
     <li>
-        <a href="/<%= app.lang%>/weeks/<%= week._id %>" jslink>
+        <a href="/<%= app.lang%>/weeks/detail/<%= week._id %>" jslink>
             <ul>
                 <li><%= app.userlist.getUserByid(week.id_user).cn() %></li>
                 <li>Week <%= week.week  + " " + week.year %></li>

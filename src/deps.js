@@ -97,7 +97,8 @@ deps.CSS = {
 			"css/home.css",
             "css/menu.css",
             "css/animations.css",
-            "css/timeSheet.css",
+            "css/timesheet.css",
+            "css/project.css"
 		]
 	}
 };

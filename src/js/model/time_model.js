@@ -1,8 +1,7 @@
 app.model.Time = Backbone.Model.extend({
     defaults: {
         date: null,
-        hours: 0,
-        minutes : 0,
+        
         id_project : null
     },
     validation: function (){

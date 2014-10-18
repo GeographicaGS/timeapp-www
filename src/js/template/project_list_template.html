@@ -1,13 +1,47 @@
-<ul>
-<% _.each(projects,function(p){ %>
-    <li>
-        <a href="/<lang>lang</lang>/projects/<%= p.slug %>" jslink>
-            <ul>
-                <li>
-                    <%= p.name %>
+<div class="container" id="projlist">
+    <ul class="list mt20">
+        <li>
+            <ul class="row ">
+                <li class="col-xs-4">
+                    <input type="text" class="searchlist" name="search" placeholder="<lang>Proyecto</lang>" />
+                </li>
+                <li class="col-xs-3">
+                    <span class="headercol">Expended hours/available.</span>
+                </li>
+                <li class="col-xs-3">
+                    <span class="headercol"><lang>Balance</lang> &euro;</span>
+                </li>
+                <li class="col-xs-2">
+                    <select name="status">
+                        <option><lang>Active</lang></option>
+                        <option><lang>Archive</lang></option>
+                    </select>
                 </li>
             </ul>
-        </a>
-    </li>
-<% }); %>
-</ul>
+        </li>
+
+    <% _.each(projects,function(p){ 
+        %>
+        <li>
+            <a href="/<lang>lang</lang>/projects/<%= p.slug %>" jslink>
+                <ul class="row">
+                    <li class="col-xs-4">
+                        <%= p.name %>
+                    </li>
+                    <li class="col-xs-3">
+                       <span class="counter">
+                           <%= app.formatNumber(p.total_hours,0) %>
+                       </span>
+                    </li>
+                    <li class="col-xs-3">
+                        <%= app.formatNumber(p.total_budget - p.total_hours_price - p.total_spendings,0) %>
+                    </li>
+                    <li class="col-xs-2">
+                        <lang>Active</lang>
+                    </li>
+                </ul>
+            </a>
+        </li>
+    <% }); %>
+    </ul>
+</div>

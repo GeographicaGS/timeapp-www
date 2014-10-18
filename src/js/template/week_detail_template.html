@@ -39,13 +39,25 @@
 <textarea name="newnote"></textarea>
 
 <br/><br/>
-<a href="#" id="acceptweek">
-    <lang>Accept</lang>
-</a>
 
-<a href="#" id="rejectweek">
-    <lang>Reject</lang>
-</a>
+<% if (app.user.profile >= app.cons.ST_PROFILE_ADMIN) { %>
 
+    <% if (week.status == app.cons.ST_WEEK_SENT || week.status == app.cons.ST_WEEK_REJECTED ) { %>
+    <a href="#" id="acceptweek">
+        <lang>Accept</lang>
+    </a>
+    <% } %>
 
+    <% if (week.status == app.cons.ST_WEEK_SENT || week.status == app.cons.ST_WEEK_ACCEPTED ) { %>
+    <a href="#" id="rejectweek">
+        <lang>Reject</lang>
+    </a>
+    <% } %>
 
+<% } else  { %>
+
+    <a href="#" id="addcomment">
+        <lang>Add comment</lang>
+    </a>
+
+<% } %>

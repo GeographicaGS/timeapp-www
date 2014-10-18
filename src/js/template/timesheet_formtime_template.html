@@ -1,7 +1,7 @@
 <form>
 
     <h6><%= model.date.format("dddd, DD MMM YYYY") %> </h6>
-    <label><lang>Project</lang></label>
+    <label><lang>Project</lang></label><br/>
     <select name="id_project" <%= model.id ? "disabled" : ""%>>
         <% _.each(projects,function(p){  %>
             <option value=<%= p._id %> <%= model.id_project == p._id ? "selected" : ""%>><%= p.name %></option>
@@ -9,23 +9,25 @@
     </select>
     <br/>
 
-    <input type="number" placeholder="HH" name="hours" value="<%= model.hours %>" />
+    <input type="text" placeholder="HH" name="hours" value="<%= model.hours!==null ? model.hours : "" %>" />
     :
-    <input type="number" placeholder="MM" name="minutes" value="<%= model.minutes %>" />
+    <input type="text" placeholder="MM" name="minutes" value="<%= model.minutes!==null ? model.minutes : "" %>" />
 
-    <br/><br/>
-
-    <% if (model.id) { %>
-    <a href="#" data-id="<%= model.id %>" id="deletetime">
-        Delete
-    </a>
-    <% } %>
-    <a href="#" id="save">
-        <% if (!model.id) { %>
-        + <lang>Add time</lang>
-        <% } else { %>
-        <lang>Edit</lang>
-        <% } %>
-    </a>
-    <a href="#" id="cancel_addtime">Cancelar    </a>
 </form>
+<div>
+    <div class="ctrlbuttons">
+        <% if (model.id) { %>
+        <a href="#" data-id="<%= model.id %>" id="deletetime">
+            Delete
+        </a>
+        <% } %>
+        <a href="#" id="save">
+            <% if (!model.id) { %>
+            + <lang>Add time</lang>
+            <% } else { %>
+            <lang>Edit</lang>
+            <% } %>
+        </a>
+        <a href="#" id="cancel_addtime"><lang>Cancel</lang></a>
+    </div>
+</div>

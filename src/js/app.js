@@ -119,7 +119,12 @@ app.loginComplete = function(){
             else{
                 app._menuView = new app.view.Menu();    
             }
-            
+            if (app.user.profile == app.cons.ST_PROFILE_ADMIN){
+                $(".new-proyect").show();
+            }
+            else{
+                $(".new-proyect").hide();   
+            }
             app.closeLogin();
 
             if (Backbone.history.fragment===undefined || Backbone.history.fragment==="undefined" 

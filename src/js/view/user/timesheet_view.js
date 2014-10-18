@@ -9,8 +9,6 @@ app.view.User.TimeSheet = Backbone.View.extend({
         // $(window).scroll(this.getNewWeek);
         this.weeks=[];
 
-        console.log("timesheet");
-
         this.userprojects = new app.collection.User.Projects();
         this.userprojects.fetch({reset: true});
 

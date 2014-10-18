@@ -3,17 +3,23 @@
     week = date.isoWeek();
 %>
 
-<div class="mb25">
-	<div class="weekLine"></div>
-	<p class="weekNumber">
-        SEMANA <%= week  + " " + year %>  (<%= app.weekStatusToStr(dataweek.status) %>) 
-        <% if (dataweek.status == app.cons.ST_WEEK_PENDING || dataweek.status == app.cons.ST_WEEK_REJECTED) {%>
-            - 
-            <a href="#" class="sendweek" date-year="<%= year %>" date-week="<%= week %>" >
-                <lang>Send week timesheet</lang>
-            </a>
-        <% } %>
-    </p>
+<div class="weekheader">
+    <div class="row">
+        <div class="col-xs-3 nopadding">
+        </div>
+        <div class="col-xs-9 nopadding">
+        	<div class="weekLine"></div>
+        	<p class="weekNumber">
+                <strong>SEMANA <%= week  %></strong> <%= year %>  (<%= app.weekStatusToStr(dataweek.status) %>) 
+                <% if (dataweek.status == app.cons.ST_WEEK_PENDING || dataweek.status == app.cons.ST_WEEK_REJECTED) {%>
+                    - 
+                    <a href="#" class="sendweek" date-year="<%= year %>" date-week="<%= week %>" >
+                        <lang>Send week timesheet</lang>
+                    </a>
+                <% } %>
+            </p>
+        </div>
+    </div>
 
 </div>
 
@@ -22,21 +28,35 @@ dateloop = moment(date);
 
 for(var i=0; i<7; i++){
     %>
-	<div class="mb50">
-		<p class="weekDate">
-            <%= dateloop.format("dddd, DD MMM YYYY") %>
-        </p>
-		<div class="circle"></div>
-		<div class="timeLine">
-            <% for (var j=0;j<weektime[i].projects.length;j++) { %>
-                <a href="#" class="projtime" data-date="<%= dateloop.format("YYYY-MM-DD") %>" data-day=<%=i %> data-proj-idx=<%=j%>>
-                    <%= app.formatNumber(weektime[i].projects[j].nhours,0) %>
-                </a>
-            <% } %>
-      
-            <a href="#" class="ctrl_addtime" data-date="<%= dateloop.format("YYYY-MM-DD") %>">
-                +
-            </a>      
+	<div class="weekday">
+        <div class="col-xs-3 nopadding">
+            <div class="circle"></div>
+    		<p class="weekDate">
+                <%= dateloop.format("dddd, DD MMM YYYY") %>
+            </p>
+    		
+        </div>
+        <div class="col-xs-9 nopadding">
+    		<div class="timeLine">
+                <div class="refline"></div>
+                <div class="elements">
+                    <% for (var j=0;j<weektime[i].projects.length;j++) { 
+
+                        %>
+                        <a href="#" class="projtime" data-date="<%= dateloop.format("YYYY-MM-DD") %>" data-day=<%=i %> data-proj-idx=<%=j%>>
+                            <%= app.formatNumber(weektime[i].projects[j].nhours,0) %>
+                        </a>
+                    <% } %>
+
+                    <a href="#" class="ctrl_addtime" data-date="<%= dateloop.format("YYYY-MM-DD") %>">
+                        +
+                    </a>      
+                    <div class="totalelements">
+                        <%= app.formatNumber(weektime[i].total_hours,0) %>
+                    </div>
+                </div>
+
+            </div>
         </div>
 		<div class="clear"></div>
 	</div>
