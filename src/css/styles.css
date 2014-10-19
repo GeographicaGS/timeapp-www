@@ -92,6 +92,9 @@ light_blue{ color: @light_blue;}
 green2{ color: @green2;}
 orange2{ color: @orange2;}
 yellow2{ color: @yellow2;}
+.bluelight{
+    color: #0066ff;
+}
 
 /* Fonts */
 
@@ -345,6 +348,10 @@ ul.list{
         min-height: 47px;
         border-bottom:1px solid @grey9;
         line-height: 47px;
+
+        &.header{
+            border-bottom:1px solid #808086;
+        }
     }
 
     .headercol{
@@ -371,6 +378,8 @@ ul.list{
 
         }
     }
+
+
 }
 
 ul.listusers{
@@ -468,40 +477,47 @@ section.header{
 }
 
 .ctrlbuttons{
-        height:50px;
-        background-color: #eee;
-        border: 1px solid #dddddf;
-        display: flex;
+    height:50px;
+    background-color: #eee;
+    border: 1px solid #dddddf;
+    display: flex;
 
 
-        width: 100%;
-        a{
-            flex-grow: 1;
-            
-            line-height: 50px;
-            .roboto(bold);
-            font-size: 16px;
-            color:@black;
-            text-align: center;
+    width: 100%;
+    a{
+        flex-grow: 1;
+        
+        line-height: 50px;
+        .roboto(bold);
+        font-size: 16px;
+        color:@black;
+        text-align: center;
 
-            border-left: 1px solid #dddddf;
-            
-            &:first-child{
-                border-left: none;
-            }
-
-            &:last-child{
-                .roboto(light);
-                color:@grey10;
-                
-            };
-
-            &.highlight{
-                background-color: @green;
-                .roboto(bold);
-                color: @white;
-            }
-
+        border-left: 1px solid #dddddf;
+        
+        &:first-child{
+            border-left: none;
         }
-    }
 
+        &:last-child{
+            .roboto(light);
+            color:@grey10;
+            
+        };
+
+        &.highlight{
+            background-color: @green;
+            .roboto(bold);
+            color: @white;
+        }
+
+    }
+}
+
+.euro{
+    color: @grey10;
+}
+
+.bold{
+    .roboto(bold);
+}

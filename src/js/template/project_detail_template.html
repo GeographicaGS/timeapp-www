@@ -17,102 +17,236 @@
 
 <div class="container" >
 
-<label><lang>Current balance</lang></label><br/>
-<span><%= app.formatNumber(project.total_budget - project.total_hours_price - project.total_spendings) %>&euro;</span>
+    <div class="row">
+        <div class="col-xs-8  ">
 
-<h6><lang>Budgets</lang></h6>
-
-<ul>
-<%_.each(project.budgets,function(b){ %>
-    <li>
-        <a href="#" data-budget="<%=b.id %>">
-            <ul>
-                <li><%= !b.desc ? "<lang>Initial budget</lang>" : b.desc %></li>
-                <li><%= parseInt(b.amount) %></li>
+            <ul class="list budget">
+                <li class="header">
+                    <ul class="row">
+                        <li class="col-xs-9 ">
+                            <lang>Budget</lang>
+                        </li>
+                        <li class="col-xs-3 textright">
+                            <lang>Amount</lang>
+                        </li>
+                    </ul>
+                </li>
+                <%_.each(project.budgets,function(b){ %>
+                    <li>
+                        <a href="#" data-budget="<%=b.id %>">
+                            <ul class="row">
+                                <li class="col-xs-9">
+                                    <%= !b.desc ? "<lang>Initial budget</lang>" : b.desc %>
+                                    -
+                                    <span class="date"><%= moment(b.date).format("DD/MM/YYYY HH:MM") %></span>
+                                </li>
+                                <li class="col-xs-3 textright"><%= parseInt(b.amount) %><span class="euro"> &euro;</span></li>
+                            </ul>
+                        </a>
+                    </li>
+                <% }); %>
+                <li>
+                    <ul class="row">
+                        <li class="col-xs-9 bold">Total</li>
+                        <li class="col-xs-3 textright bold">
+                            <%= project.total_budget %>
+                            <span class="euro"> &euro;</span>
+                        </li>
+                    </ul>
+                </li>
             </ul>
-        </a>
-    </li>
-<% }); %>
-<li>
-    <ul>
-        <li>Total</li>
-        <li><%= project.total_budget %></li>
-    </ul>
-</li>
-</ul>
 
-<a href="#" id="addbudget">
-    + <lang>Add budget</lang>
-</a>
-
-<h6><lang>Expenses</lang></h6>
-<ul>
-    <% _.each(project.spendings,function(sp){ %>
-        <li>
-            <a href="#" data-spending="<%=sp.id %>">
-                <ul>
-                    <li><%= sp.desc + " " + sp.date%></li>
-                    <li><%= sp.amount %>&euro;</li>
-                </ul>
+            <a href="#" id="addbudget" class="ctrladd">
+                + <lang>Add budget</lang>
             </a>
-        </li>
-    <% }); %>
-    <li>
-        <ul>
-            <li>Total</li>
-            <li><%= project.total_spendings %>&euro;</li>
-        </ul>
-    </li>
-</ul>
 
-<a href="#" id="addspending">
-    + <lang>Add spending</lang>
-</a>
+            <div class="clear"></div>
 
+            <ul class="list spendings">
+                <li class="header">
+                    <ul class="row">
+                        <li class="col-xs-9 ">
+                            <lang>Expenses</lang>
+                        </li>
+                        <li class="col-xs-3 textright">
+                            <lang>Amount</lang>
+                        </li>
+                    </ul>
+                </li>
+                <%_.each(project.spendings,function(sp){ %>
+                    <li>
+                        <a href="#" data-spending="<%=sp.id %>">
+                            <ul class="row">
+                                <li class="col-xs-9">
+                                    <span class="red"><%= sp.desc %></span>
+                                    - 
+                                    <span class="date red">
+                                        <%= moment(sp.date).format("DD/MM/YYYY") %>
+                                    </span>
+                                </li>
+                                <li class="col-xs-3 textright">
+                                    <span class="red"><%= sp.amount %></span>
+                                     <span class="euro"> &euro;</span>
+                                </li>
+                            </ul>
+                        </a>
+                    </li>
+                <% }); %>
+                <li>
+                    <ul class="row">
+                        <li class="col-xs-9 bold red">Total</li>
+                        <li class="col-xs-3 textright bold red" >
+                            <%= project.total_spendings %>
+                            <span class="euro"> &euro;</span>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
 
-<h6><lang>Invoices</lang></h6>
-<ul>
-    <% _.each(project.invoices,function(iv){ %>
-        <li>
-            <a href="#" data-invoice="<%=iv.id %>">
-                <ul>
-                    <li><%= iv.ref + " " + iv.desc + " " + iv.date %></li>
-                    <li><%= iv.amount %>&euro;</li>
-                </ul>
+            <a href="#" id="addspending" class="ctrladd">
+                + <lang>Add expense</lang>
             </a>
-        </li>
-    <% }); %>
-     <li>
-        <ul>
-            <li>Total</li>
-            <li><%= project.total_invoices %>&euro;</li>
-        </ul>
-    </li>
-</ul>
-<a href="#" id="addinvoice">
-    + <lang>Add invoice</lang>
-</a>
 
-<h6>
-<lang>Usuarios</lang>
-</h6>
+            <ul class="list listusers">
+                <li class="header">
+                    <ul class="row">
+                        <li class="col-xs-8">
+                            <lang>Team</lang> (<%= project.members.length %>)
+                        </li>
+                        <li class="col-xs-2">
+                            &nbsp;
+                            <!-- <lang>Hours</lang> -->
+                        </li>
+                        <li class="col-xs-2 textright">
+                            <lang>Hourly/rate</lang>
+                        </li>
+                    </ul>
+                </li>
 
-<ul>
-<% _.each(project.members,function(m){ %>
-    <li>
-        <ul>
-            <li><%= app.userlist.getUserByid(m.id_user).cn() %></li>
-            <% if (m.type_rate == 2) { %>
-                <li><%= m.hourly_rate %> &euro;</li>
-            <% } %>
-        </ul>
-    <li>
-<% }) %>
-</ul>
+                <% 
+                _.each(project.members, function(member){ 
+                    user = app.userlist.getUserByid(member.id_user);
+                %>
+                <li>
+                    <ul class="row">
+                        <li class="col-xs-8">    
+                            <img class="avatar"src="<%= user.gravatar() %>" height="35px" width="35px"/>
+                            <span class="username"><%= user.cn() %></span>
+                        </li>
 
-<a href="/<lang>lang</lang>/projects/form/<%= project.slug%>" jslink>
-Editar
-</a>
+                        <li class="col-xs-2">
+                            &nbsp;
+                            <!-- <span class="counter"></span> -->
+                        </li>
+                        <li class="col-xs-2 textright">
+                            <% if (project.hourly_rate == 1) { %>
+                            --
+                            <% } else { %>
+                            <span> <%= member.hourly_rate %></span>
+                            <span class="euro"> &euro;</span>
+                            <% } %>
+                        </li>
 
-</div>
-</div>
+                    </ul>
+                </li>
+
+            <% }); %>
+
+            </ul>
+
+            <div class="ctrl_buttons">
+
+                <a class="button mr" href="/<lang>lang</lang>/projects/form/<%= project.slug%>" jslink>
+                    <lang>Editar proyecto</lang>
+                </a>
+
+                <a class="cancel_link ml" href="#back" jslink>
+                    <lang>Cancel</lang>
+                </a>
+
+            </div>
+
+
+        </div>
+
+        <%
+            balance = project.total_budget - project.total_hours_price - project.total_spendings;
+            if (balance >= 0){
+                classbalance = "green";
+                strbalance = "<lang>Positive</lang>";
+            }
+            else{
+                classbalance = "red";
+                strbalance = "<lang>Negative</lang>";
+            }
+        %>
+
+        <div class="col-xs-3 col-xs-push-1">
+
+            <ul class="list balance row">
+                <li class="header col-xs-12 ">
+                    <lang>Current balance</lang>
+                </li>
+
+                <li class="col-xs-7 <%= classbalance%>">
+                    <%= strbalance %>
+                </li>
+
+                <li class="col-xs-5 textright">
+                    <span class="<%= classbalance%>"><%= app.formatNumber(balance) %></span>
+                    <span class="euro"> &euro;</span>
+                </li>
+
+            </ul>
+
+             <ul class="list invoices">
+                <li class="header">
+                    <ul class="row">
+                        <li class="col-xs-9">
+                            <lang>Invoices</lang>
+                        </li>
+                        <li class="col-xs-3 textright">
+                            <lang>Amount</lang>
+                        </li>
+                    </ul>
+                </li>
+                <% _.each(project.invoices,function(iv){ %>
+                    <li>
+                        <a href="#" data-invoice="<%=iv.id %>">
+                            <ul class="row">
+                                <li class="col-xs-9">
+                                    <span class="bluelight"><%= iv.ref %></span>
+                                    <span class="date"> (<%= moment(iv.date).format("DD/MM/YYYY") %> )</span>
+                                </li>
+                                <li class="col-xs-3 textright bluelight">
+                                    <%= iv.amount %>
+                                    <span class="euro"> &euro;</span>
+                                </li>
+                                <% if (iv.desc) { %>
+                                    <li class="col-xs-12 inv_desc">
+                                        <%= iv.desc %>
+                                    </li>
+                                <% } %>
+                            </ul>
+                        </a>
+                    </li>
+                <% }); %>
+                 <li>
+                    <ul class="row">
+                        <li class="col-xs-9 bold bluelight">Total</li>
+                        <li class="col-xs-3 textright bold bluelight" >
+                            <%= project.total_invoices %>
+                            <span class="euro"> &euro;</span>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+            <a href="#" id="addinvoice" class="ctrladd">
+                + <lang>Add invoice</lang>
+            </a>
+        </div>
+    </div>
+
+</div> <!-- End container -->
+
+</div> <!-- #End projdetail -->

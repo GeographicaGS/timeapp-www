@@ -1,30 +1,39 @@
-<form>
-    
-    <label><lang>Amount</lang></label><br/>
-    <input type="number" name="amount" value="<%= model.amount %>"/><br/>
 
-    <label><lang>Invoice REF</lang></label><br/>
-    <input type="text" name="ref" placeholder="<lang>REF</lang>" value="<%= model.ref %>"/><br/>
+<div id="formbudget" class="projectpopup">
+
+    <div class="margin15">
+        <form>
+            
+            <label><lang>Amount</lang></label>
+            <input type="number" name="amount" value="<%= model.amount %>"/><br/>
+
+            <label><lang>Invoice REF</lang></label>
+            <input type="text" name="ref" placeholder="<lang>REF</lang>" value="<%= model.ref %>"/><br/>
 
 
-    <label><lang>Description</lang></label><br/>
-    <input type="text" name="desc" placeholder="<lang>Description</lang>" value="<%= model.desc %>"/><br/>
+            <label><lang>Description</lang></label>
+            <input type="text" name="desc" placeholder="<lang>Description</lang>" value="<%= model.desc %>"/><br/>
 
-    <label><lang>Date</lang></label><br/>
-    <input type="date" name="date" placeholder="dd/mm/YYYY" value="<%= model.date ? moment(model.date).format('YYYY-MM-DD') : "" %>"/>
+            <label><lang>Date</lang></label>
+            <input type="date" name="date" placeholder="dd/mm/YYYY" value="<%= model.date ? moment(model.date).format('YYYY-MM-DD') : "" %>"/>
 
-</form>
+        </form>
+    </div>
 
-<a href="#" id="save">
-    <lang>Guardar</lang>
-</a>
+    <div class="ctrlbuttons">
 
-<% if (model.id) { %>
-    <a href="#" id="remove">
-        <lang>Remove</lang>
-    </a>
-<% } %>
+        <a href="#" class="highlight" id="save">
+            <lang>Guardar</lang>
+        </a>
 
-<a href="#" id="cancel">
-    <lang>Cancelar</lang>
-</a>
+        <% if (model.id) { %>
+            <a href="#" id="remove">
+                <lang>Remove</lang>
+            </a>
+        <% } %>
+
+        <a href="#" id="cancel">
+            <lang>Cancelar</lang>
+        </a>
+    </div>
+</div>

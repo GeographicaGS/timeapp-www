@@ -11,7 +11,7 @@
         <div class="col-xs-9 nopadding">
         	<div class="weekLine"></div>
         	<p class="weekNumber">
-                <strong>SEMANA <%= week  %></strong> <%= year %>  (<%= app.weekStatusToStr(dataweek.status) %>) 
+                <strong>SEMANA <%= week  %></strong> <%= year %> <span data-week-status='<%= dataweek.status %>'>(<%= app.weekStatusToStr(dataweek.status) %>)</span>
                 <% 
 
                 if (dataweek.status == app.cons.ST_WEEK_PENDING || dataweek.status == app.cons.ST_WEEK_REJECTED) {
