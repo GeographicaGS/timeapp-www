@@ -9,6 +9,7 @@ app.view.User.TimeSheetFormTime = Backbone.View.extend({
     
     initialize: function(opts) {
         this.projects = opts.projects;
+        this.weekblocked = opts.weekblocked;
         Backbone.Validation.bind(this);
         this.render();
     },
@@ -26,7 +27,8 @@ app.view.User.TimeSheetFormTime = Backbone.View.extend({
         
         this.$el.html(this._template({
             projects : this.projects,
-            model: this.model.toJSON()
+            model: this.model.toJSON(),
+            weekblocked : this.weekblocked
         }));
 
         return this;

@@ -351,7 +351,7 @@ app.weekStatusToStr = function(status){
 app.fancyboxOpts = function(){
 
     return   {
-        //padding : 0,
+        padding : 0,
         //autoHeight : false,
         //autoSize : false,
         // width : "90%",
@@ -361,7 +361,7 @@ app.fancyboxOpts = function(){
         helpers : {
             overlay : {
                 css : {
-                    'background' : 'rgba(255, 255, 255, 0.85)'
+                    'background' : 'rgba(40, 40, 40, 0.75)'
                 }
             }
         }

@@ -7,7 +7,7 @@ app.view.User.Week = Backbone.View.extend({
     events: {
         "click .projtime" : "showProject",
         "click .ctrl_addtime": "showAddTime",
-        "click .sendweek": "sendWeek"
+        "click .formweek": "formWeek"
     },
     
     initialize: function(options) {
@@ -67,7 +67,8 @@ app.view.User.Week = Backbone.View.extend({
             date:this.date,
             weektime: weektime,
             maxweekhours : maxweekhours,
-            dataweek: this.weekModel.toJSON()
+            dataweek: this.weekModel.toJSON(),
+            weekblocked: this.isWeekBlocked()
         }));
 
         var projhourswidth =  $(".timeLine").width() - $(".ctrl_addtime").width() 
@@ -105,6 +106,10 @@ app.view.User.Week = Backbone.View.extend({
         $("#addtime").html(this.addTimeView.el);
     },
 
+    isWeekBlocked : function(e){
+        return ! (this.weekModel.get("status") == app.cons.ST_WEEK_PENDING || this.weekModel.get("status") == app.cons.ST_WEEK_REJECTED);
+    },
+
     showProject: function(e){
         e.preventDefault();
 
@@ -128,18 +133,25 @@ app.view.User.Week = Backbone.View.extend({
 
         this.addTimeView = new app.view.User.TimeSheetFormTime({
             projects : availableprojects ,
-            model: model
+            model: model,
+            weekblocked : this.isWeekBlocked()
         });
 
         $("#addtime").html(this.addTimeView.el);
     },
 
-    sendWeek: function(e){
+    formWeek: function(e){
         e.preventDefault();
 
-        this.sendWeekView = new app.view.User.TimeSheetSendWeek({
-            model: this.weekModel 
+        $.post(app.config.API_URL + "/weeks/requestweekid/"+ this.year + "/" + this.week,function(data){
+            if (data){
+                if (this.sendWeekView ){
+                    this.sendWeekView.close();
+                }
+                this.sendWeekView = new app.view.Week.Detail({id: data.id});
+            }
         });
+        
     }
 
 });

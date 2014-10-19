@@ -1,0 +1,51 @@
+#projectform{
+    padding-top: 60px;
+    margin-bottom: 100px;
+
+    label{
+        display: block;
+    }
+
+    input[name='hourly_rate']{
+        margin-top: 32px;
+    }
+
+    a#addmember{
+        height:46px;
+        line-height: 46px;
+        border-top: 1px solid #dddddf;
+        border-right: 1px solid #dddddf;
+        border-bottom: 1px solid #dddddf;
+        .roboto(bold);
+        font-size:16px;
+        display: block;
+        background-color: #fff;
+        padding-left: 10px;
+    }
+
+    ul.listusers{
+        margin-top: 18px;
+    }
+
+    form{
+        margin-bottom: 30px;
+    }
+}
+
+#projdetail{
+    h2{
+        margin: 30px 0 20px 0;
+    }
+
+    .hourssum{
+        label{
+            display: inline-block;
+            color:@grey11;
+            .roboto(light);
+            font-size: 16px;
+        }
+        .counter{
+            margin-left: 15px;
+        }
+    }
+}
