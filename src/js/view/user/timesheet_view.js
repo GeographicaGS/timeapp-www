@@ -39,16 +39,16 @@ app.view.User.TimeSheet = Backbone.View.extend({
     },
 
      getNewWeek:function(e){
-        // if(this.timeout) {
-        //     clearTimeout(this.timeout);
-        //     timeout = null;
-        // }
-        // this.timeout = setTimeout(this.__getNewWeek(e), 100000);
-        if(this.loadLastWeek && $(window).scrollTop() < 0){
+
+        if(this.loadLastWeek && $(window).scrollTop() <= 0){
             this.loadLastWeek = false;
             var self = this;
             setTimeout(function(){
-                self.__getNewWeek(e)
+                if($(window).scrollTop() <= 0){
+                    self.__getNewWeek(e)
+                }else{
+                    self.loadLastWeek = true;
+                }
             },500);
         }
         
@@ -63,18 +63,20 @@ app.view.User.TimeSheet = Backbone.View.extend({
 
      __getNewWeek:function(e){
         // if($(window).scrollTop() <= 0){
-            this.undelegateEvents();
             this.cont ++;
             var d = d = new Date();
             d = this.__getMonday(d);
             d.setDate(d.getDate()-7*this.cont);
-            this.weeks.push(new app.view.User.Week({date:d, userprojects: this.userprojects, parentView:this}));
-            this.weeks[this.weeks.length-1].$el.hide();
-            this.$('#weeks').prepend(this.weeks[this.weeks.length-1].$el);
-            var self = this;
-            this.weeks[this.weeks.length-1].$el.fadeIn("slow", function(){
-                self.loadLastWeek = true;
-            });
+            if(!app.config.START_DATE || d >= new Date(app.config.START_DATE)){
+                this.undelegateEvents();
+                this.weeks.push(new app.view.User.Week({date:d, userprojects: this.userprojects, parentView:this}));
+                this.weeks[this.weeks.length-1].$el.hide();
+                this.$('#weeks').prepend(this.weeks[this.weeks.length-1].$el);
+                var self = this;
+                this.weeks[this.weeks.length-1].$el.fadeIn("slow", function(){
+                    self.loadLastWeek = true;
+                });
+            }
         // }
      }
 

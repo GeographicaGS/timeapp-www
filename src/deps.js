@@ -81,7 +81,7 @@ deps.JS = {
 		],
 		desc: "Core library."
 	}
-};
+};	
 
 deps.CSS = {
 	ThirdParty:{
@@ -97,7 +97,7 @@ deps.CSS = {
 			"css/home.css",
             "css/menu.css",
             "css/animations.css",
-            "css/timesheet.css",
+            "css/timeSheet.css",
             // "css/project.css"
 		]
 	}
