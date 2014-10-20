@@ -119,7 +119,7 @@ app.loginComplete = function(){
             else{
                 app._menuView = new app.view.Menu();    
             }
-            if (app.user.profile == app.cons.ST_PROFILE_GESTOR){
+            if (app.user.profile >= app.cons.ST_PROFILE_GESTOR){
                 $(".new-proyect").show();
             }
             else{
