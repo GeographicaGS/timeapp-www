@@ -9,25 +9,29 @@
     </select>
     <br/>
 
-    <input type="text" placeholder="HH" name="hours" value="<%= model.hours!==null ? model.hours : "" %>" />
+    <input type="text" placeholder="HH" name="hours" 
+        value="<%= model.hours!==null ? model.hours : "" %>" <%= weekblocked ? "disabled" : ""%>/>
     :
-    <input type="text" placeholder="MM" name="minutes" value="<%= model.minutes!==null ? model.minutes : "" %>" />
+    <input type="text" placeholder="MM" name="minutes"
+        value="<%= model.minutes!==null ? model.minutes : "" %>" <%= weekblocked ? "disabled" : ""%> />
 
 </form>
 <div>
     <div class="ctrlbuttons">
-        <% if (model.id) { %>
-        <a href="#" data-id="<%= model.id %>" id="deletetime">
-            Delete
-        </a>
+        <% if (!weekblocked) { %>
+            <% if (model.id) { %>
+            <a href="#" data-id="<%= model.id %>" id="deletetime">
+                Delete
+            </a>
+            <% } %>
+            <a href="#" id="save">
+                <% if (!model.id) { %>
+                + <lang>Add time</lang>
+                <% } else { %>
+                <lang>Edit</lang>
+                <% } %>
+            </a>
         <% } %>
-        <a href="#" id="save">
-            <% if (!model.id) { %>
-            + <lang>Add time</lang>
-            <% } else { %>
-            <lang>Edit</lang>
-            <% } %>
-        </a>
         <a href="#" id="cancel_addtime"><lang>Cancel</lang></a>
     </div>
 </div>

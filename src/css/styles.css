@@ -92,6 +92,9 @@ light_blue{ color: @light_blue;}
 green2{ color: @green2;}
 orange2{ color: @orange2;}
 yellow2{ color: @yellow2;}
+.bluelight{
+    color: #0066ff;
+}
 
 /* Fonts */
 
@@ -345,6 +348,10 @@ ul.list{
         min-height: 47px;
         border-bottom:1px solid @grey9;
         line-height: 47px;
+
+        &.header{
+            border-bottom:1px solid #808086;
+        }
     }
 
     .headercol{
@@ -371,6 +378,8 @@ ul.list{
 
         }
     }
+
+
 }
 
 ul.listusers{
@@ -442,3 +451,73 @@ section.header{
     background-color: @white;
 }
 
+/* Pending */
+[data-week-status='1']{
+    color : #ff6600;
+    .roboto(italic);
+}
+
+/* Enviada */
+[data-week-status='2']{
+    color : #ff6600 ;
+}
+
+/* Rejected*/
+[data-week-status='3']{
+    color : #ff0000 ;
+}
+
+/* Accepted*/
+[data-week-status='4']{
+    color : #008833 ;
+}
+
+.fancybox-skin{
+    border-radius: 0 !important;
+}
+
+.ctrlbuttons{
+    height:50px;
+    background-color: #eee;
+    border: 1px solid #dddddf;
+    display: flex;
+
+
+    width: 100%;
+    a{
+        flex-grow: 1;
+        
+        line-height: 50px;
+        .roboto(bold);
+        font-size: 16px;
+        color:@black;
+        text-align: center;
+
+        border-left: 1px solid #dddddf;
+        
+        &:first-child{
+            border-left: none;
+        }
+
+        &:last-child{
+            .roboto(light);
+            color:@grey10;
+            
+        };
+
+        &.highlight{
+            background-color: @green;
+            .roboto(bold);
+            color: @white;
+        }
+
+    }
+}
+
+.euro{
+    color: @grey10;
+}
+
+.bold{
+    .roboto(bold);
+}

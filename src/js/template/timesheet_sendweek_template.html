@@ -1,31 +1,54 @@
-<% if (model.notes.length>1) { %>
-<ul>
-    <%_.each(model.notes,function(note){ %>
+<div id="formweek">
+
+    <h3>
+        <% console.log(model); console.log(collection); %>
+        <%= sprintf("<lang>Semana %dº %d</lang>",model.week,model.year) %>
+
+    </h3>
+    <div class="status">
+        <label><lang>Status</lang></label>
+        <span><%= app.weekStatusToStr(model.status) %></span>
+    </div>
+    <div class="clear"></div>
+
+    <span class="usercn"><%=app.userlist.getUserByid(model.id_user) %></span>
+
+    <ul class="summary">
         <li>
-            <h6>
-                <%= app.userlist.getUserByid(note.id_user).cn() %>
-                -
-                <%= moment(note.date).format("YYYY-MM-DD HH:mm") %>
-            </h6>
-            <p><%= app.nl2br(app.escapeHtml(note.note)) %></p>
+            <div class="lleft"><lang>Summary</lang></div>
+            <div class="lright"><lang>Hours</lang></div>
         </li>
-    <% }) %>
-    
-</ul>
-<% } %>
 
-<p><lang>This action cannot be undone. Please <strong>be sure</strong> the data you're uploading is correc</lang></p>
-<label><lang>Comment</lang></label>
-<textarea name="newnote"></textarea>
+    </ul>
 
-<br/><br/>
-<a href="#" id="sendtimesheet">
-    <lang>Send timesheet</lang>
-</a>
+    <% if (model.notes.length>1) { %>
+    <ul>
+        <%_.each(model.notes,function(note){ %>
+            <li>
+                <h6>
+                    <%= app.userlist.getUserByid(note.id_user).cn() %>
+                    -
+                    <%= moment(note.date).format("YYYY-MM-DD HH:mm") %>
+                </h6>
+                <p><%= app.nl2br(app.escapeHtml(note.note)) %></p>
+            </li>
+        <% }) %>
+        
+    </ul>
+    <% } %>
 
-<a href="#" id="cancel">
-    <lang>Cancelar</lang>
-</a>
+    <p><lang>This action cannot be undone. Please <strong>be sure</strong> the data you're uploading is correc</lang></p>
+    <label><lang>Comment</lang></label>
+    <textarea name="newnote"></textarea>
+
+    <br/><br/>
+    <a href="#" id="sendtimesheet">
+        <lang>Send timesheet</lang>
+    </a>
+
+    <a href="#" id="cancel">
+        <lang>Cancelar</lang>
+    </a>
 
 
-
+</div>

@@ -1,63 +1,100 @@
-<p>
-    <%= app.userlist.getUserByid(week.id_user).cn() %>
-</p>
-<p>
-    Week: <%= week.week %><br/>
-    Year: <%= week.year %><br/>
-</p>
+<div id="formweek">
 
-<h6><lang>Summary</lang></h6>
-<ul>
-    <% _.each(week.timesbyproject,function(w){ %>
-        <li>
-            <span><%= w.projectname %>:</span>
-            <span><%= w.total%></span>
-        </li>
-    <% })%>
-</ul>
-
-<% if (week.notes.length>0) { %>
-<h6><lang>Comments</lang></h6>
-<ul>
-    <%
-    _.each(week.notes,function(note){ %>
-        <li>
-            <h6>
-                <%= app.userlist.getUserByid(note.id_user).cn() %>
+    <div class="margin15">
+        <h3>
+            <%= sprintf("<lang>Semana %dº %d</lang>",week.week,week.year) %>
+            <span class="date">
+                <%= moment(week.year+"-01-01").day("Monday").isoWeek(week.week).format("DD/MM/YYYY") %>
                 -
-                <%= moment(note.date).format("YYYY-MM-DD HH:mm") %>
-            </h6>
-            <p><%= app.nl2br(app.escapeHtml(note.note)) %></p>
-        </li>
-    <% }) %>
-    
-</ul>
-<% } %>
+                <%= moment(week.year+"-01-01").day("Sunday").isoWeek(week.week).format("DD/MM/YYYY") %>
 
-<p><lang>This action cannot be undone. Please <strong>be sure</strong> the data you're uploading is correct</lang></p>
-<label><lang>Comment</lang></label><br/>
-<textarea name="newnote"></textarea>
+            </span>
+        </h3>
+        <div class="status">
+            <label><lang>Status</lang>: </label>
+            <span data-week-status="<%= week.status %>"><%= app.weekStatusToStr(week.status) %></span>
+        </div>
+        <div class="clear"></div>
 
-<br/><br/>
+        <div class="usercn"><%=app.userlist.getUserByid(week.id_user).cn() %></div>
 
-<% if (app.user.profile >= app.cons.ST_PROFILE_ADMIN) { %>
+        <ul class="summary">
+            <li>
+                <div class="lleft"><lang>Summary</lang></div>
+                <div class="lright"><lang>Hours</lang></div>
+            </li>
 
-    <% if (week.status == app.cons.ST_WEEK_SENT || week.status == app.cons.ST_WEEK_REJECTED ) { %>
-    <a href="#" id="acceptweek">
-        <lang>Accept</lang>
-    </a>
-    <% } %>
+            <% 
+            var total = 0;
+            _.each(week.timesbyproject,function(w){ 
+                total += w.total;
+            %>
+                <li>
+                    <div class="lleft"><%= w.projectname %></div>
+                    <div class="lright"><span class="counter"><%= app.formatNumber(w.total,2) %></span></div>
+                </li>
+            <% })%>
 
-    <% if (week.status == app.cons.ST_WEEK_SENT || week.status == app.cons.ST_WEEK_ACCEPTED ) { %>
-    <a href="#" id="rejectweek">
-        <lang>Reject</lang>
-    </a>
-    <% } %>
+            <li>
+                <div class="lleft"><lang>Total</lang></div>
+                <div class="lright"><%= app.formatNumber(total,2) %></div>
+            </li>
+        </ul>
+    </div>
 
-<% } else  { %>
+    <div class="greyback">
+        <% if (week.notes.length>1) { %>
+        <ul>
+            <%_.each(week.notes,function(note){ %>
+                <li class="comment">
+                    <div class="title">
+                        <img height="32px" width="32px" src="<%= app.userlist.getUserByid(note.id_user).gravatar() %>" />
+                        <span class="cn">
+                            <%= app.userlist.getUserByid(note.id_user).cn() %>
+                        </span>
+                        <span class="date">
+                            <%= moment(note.date).format("DD MMM YYYY – HH:mm") %>
+                        </span>
+                    </div>
+                    <p><%= app.nl2br(app.escapeHtml(note.note)) %></p>
+                </li>
+            <% }) %>
+            
+        </ul>
+        <% } %>
 
-    <a href="#" id="addcomment">
-        <lang>Add comment</lang>
-    </a>
+        <div class="padding20">
+            <textarea name="newnote" placeholder="<lang>Comment</lang>"></textarea>
+        </div>
+        
+        <div class="ctrlbuttons">
+            <% if (app.user.profile >= app.cons.ST_PROFILE_ADMIN) { %>
 
-<% } %>
+                <% if (week.status == app.cons.ST_WEEK_SENT || week.status == app.cons.ST_WEEK_REJECTED ) { %>
+                <a href="#" id="acceptweek" class="highlight">
+                    <lang>Accept</lang>
+                </a>
+                <% } %>
+
+                <% if (week.status == app.cons.ST_WEEK_SENT || week.status == app.cons.ST_WEEK_ACCEPTED ) { %>
+                <a href="#" id="rejectweek" class="highlight">
+                    <lang>Reject</lang>
+                </a>
+                <% } %>
+
+            <% } %>
+
+            <% if (app.user.profile < app.cons.ST_PROFILE_ADMIN) { %>
+                <a href="#" id="sendweek" class="highlight">
+                    <lang>Send</lang>
+                </a>
+            <% } %>
+
+            <a href="#" id="cancel" jslink>
+                <lang>Cancel</lang>
+            </a>
+
+        </div>
+
+    </div>
+</div>

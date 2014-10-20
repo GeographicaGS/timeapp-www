@@ -119,7 +119,7 @@ app.loginComplete = function(){
             else{
                 app._menuView = new app.view.Menu();    
             }
-            if (app.user.profile == app.cons.ST_PROFILE_ADMIN){
+            if (app.user.profile >= app.cons.ST_PROFILE_GESTOR){
                 $(".new-proyect").show();
             }
             else{
@@ -131,11 +131,9 @@ app.loginComplete = function(){
                 || Backbone.history.fragment==="logout" || Backbone.history.fragment==="login"){
                 app.router.navigate("users/timesheet",{trigger: true});
             }
-           
-
         }
     });
-}
+};
 
 app.showLogin = function () {
     if (!app.isUserLogged()) {
@@ -322,15 +320,16 @@ app.cons = {
     "ST_USER_ENABLE" : 1,
     "ST_USER_DISABLE" : 2,
 
-    "ST_PROFILE_CLIENT" : 1,
-    "ST_PROFILE_USER" : 2,
-    "ST_PROFILE_ADMIN" : 3,
+    "ST_PROFILE_CLIENT" : 10,
+    "ST_PROFILE_USER" : 20,
+    "ST_PROFILE_GESTOR" : 30,
+    "ST_PROFILE_ADMIN" : 40,
 
     "ST_WEEK_PENDING" : 1,
     "ST_WEEK_SENT" : 2,
     "ST_WEEK_REJECTED" : 3,
     "ST_WEEK_ACCEPTED" : 4,
-}
+};
 
 app.weekStatusToStr = function(status){
     switch(status){
@@ -351,7 +350,7 @@ app.weekStatusToStr = function(status){
 app.fancyboxOpts = function(){
 
     return   {
-        //padding : 0,
+        padding : 0,
         //autoHeight : false,
         //autoSize : false,
         // width : "90%",
@@ -361,7 +360,7 @@ app.fancyboxOpts = function(){
         helpers : {
             overlay : {
                 css : {
-                    'background' : 'rgba(255, 255, 255, 0.85)'
+                    'background' : 'rgba(40, 40, 40, 0.75)'
                 }
             }
         }

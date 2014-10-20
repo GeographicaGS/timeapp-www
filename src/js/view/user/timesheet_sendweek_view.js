@@ -16,8 +16,20 @@ app.view.User.TimeSheetSendWeek  = Backbone.View.extend({
     },
 
     render: function(){
+
+        var listprojects = {},
+            col = this.collection.toJSON();
+
+        for (var i=0;i<col.length;i++){
+            for (var j=0;j<col[i].projects.length;j++){
+                
+            }
+        }
+
+
         this.$el.html(this._template({
-           model: this.model.toJSON()
+           model: this.model.toJSON(),
+           collection : this.collection.toJSON()
         }));
 
         return this;

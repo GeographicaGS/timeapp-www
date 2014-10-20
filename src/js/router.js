@@ -16,7 +16,7 @@ app.router = Backbone.Router.extend({
             "projects" : "projects",
             "projects/:slug" : "projectDetail",
             "weeks/me(/:status)" : "userWeeks",
-            "weeks/detail/:id" : "weekDetail",
+            //"weeks/detail/:id" : "weekDetail",
             "weeks(/:status)" : "weeks",
             /* Sample usage: http://example.com/#about */
             "*other"    : "defaultRoute"
@@ -90,11 +90,11 @@ app.router = Backbone.Router.extend({
         }));
     },
 
-    weekDetail: function(id){
-        app.events.trigger("menu","weeks");
-        app.showView(new app.view.Week.Detail({
-            id : id
-        }));
-    }
+    // weekDetail: function(id){
+    //     app.events.trigger("menu","weeks");
+    //     app.showView(new app.view.Week.Detail({
+    //         id : id
+    //     }));
+    // }
     
 });

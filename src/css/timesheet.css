@@ -8,7 +8,6 @@
 		width:4px;
 		left: 25%;
 		top: 0;
-		margin-left: -10px;
 
 	}
 
@@ -150,6 +149,8 @@
 		font-size: 22px;
 		color:@black;
 		margin-bottom: 26px;
+
+	
 	}
 
 
@@ -175,35 +176,5 @@
 		width: 52px;	
 	}
 
-	.ctrlbuttons{
-		height:50px;
-		background-color: #eee;
-		border: 1px solid #dddddf;
-		display: flex;
-
-
-		width: 100%;
-		a{
-			flex-grow: 1;
-			
-			line-height: 50px;
-			.roboto(bold);
-			font-size: 16px;
-			color:@black;
-			text-align: center;
-
-			border-left: 1px solid #dddddf;
-			
-			&:first-child{
-				border-left: none;
-			}
-
-			&:last-child{
-				.roboto(light);
-				color:@grey10;
-				
-			};
-
-		}
-	}
+	
 }

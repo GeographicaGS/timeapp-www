@@ -1,20 +1,68 @@
-<select id="filterweeks">
-    <option value="<%= app.cons.ST_WEEK_SENT %>"><lang>Sent</lang></option>
-    <option value="<%= app.cons.ST_WEEK_ACCEPTED %>"><lang>Accepted</lang></option>
-    <option value="<%= app.cons.ST_WEEK_REJECTED %>"><lang>Rejected</lang></option>
-    <option value="0"><lang>All</lang></option>
-</select>
-
-<ul>
-    <%_.each(weeks,function(week){ %>
-    <li>
-        <a href="/<%= app.lang%>/weeks/detail/<%= week._id %>" jslink>
-            <ul>
-                <li><%= app.userlist.getUserByid(week.id_user).cn() %></li>
-                <li>Week <%= week.week  + " " + week.year %></li>
-                <li><%= week.date_send %></li>
+<div class="container" id="weeklist">
+    <ul class="list mt20">
+        <li>
+            <ul class="row ">
+                <li class="col-xs-4">
+                    <input type="text" class="searchlist" name="search" placeholder="<lang>User</lang>" />
+                </li>
+                <li class="col-xs-3">
+                    <span class="headercol">Week</span>
+                </li>
+                <li class="col-xs-2">
+                    <span class="headercol"><lang>Hours</lang></span>
+                </li>
+                <li class="col-xs-3">
+                    <select  id="filterweeks" name="status">
+                        <option value="<%= app.cons.ST_WEEK_SENT %>"><lang>Sent</lang></option>
+                        <option value="<%= app.cons.ST_WEEK_ACCEPTED %>"><lang>Accepted</lang></option>
+                        <option value="<%= app.cons.ST_WEEK_REJECTED %>"><lang>Rejected</lang></option>
+                        <option value="0"><lang>All</lang></option>
+                    </select>
+                </li>
             </ul>
-        </a>
-    </li>
-    <% }) %>
-</ul>
+        </li>
+
+        <% if (!weeks.length){ %>
+             <li>
+                <ul class="row">
+                    <li class="col-xs-12">
+                        <lang>No weeks for the current filter selected</lang>
+                    </li>
+                </ul>
+            </li>
+        <% }
+        else{
+            _.each(weeks,function(week){ %>
+                <li>
+                    <a href="#" data-week="<%= week._id %>" >
+                        <ul class="row">
+                            <li class="col-xs-4">
+                                <%= app.userlist.getUserByid(week.id_user).cn() %>
+                            </li>
+                            <li class="col-xs-3">
+                                <%= week.week + "º " + week.year %>
+                                <span class="datelistel">
+                                    (
+                                    <%= moment(week.year+"-01-01").day("Monday").isoWeek(week.week).format("DD/MM/YYYY") %>
+                                    -
+                                    <%= moment(week.year+"-01-01").day("Sunday").isoWeek(week.week).format("DD/MM/YYYY") %>
+                                    )
+                                </span>
+                            </li>
+                            <li class="col-xs-2">
+                               <span class="counter">
+                                   <%= app.formatNumber(180,0) %>
+                               </span>
+                            </li>
+                            <li class="col-xs-3" data-week-status='<%= week.status %>'>
+                                <%= app.weekStatusToStr(week.status) %>
+                            </li>
+                            
+                        </ul>
+                    </a>
+                </li>
+            <% });
+        } %>
+
+    </ul>
+</div>

@@ -1,0 +1,130 @@
+
+#formweek{
+    width: 630px;
+    margin-top: 20px;
+    background-color: #ffffff;
+
+    h3{
+        float:left;
+        .date{
+            color: @grey10;
+            font-size: 12px;
+        }
+    }
+    .status{
+        float:right;
+
+        label{
+            color: @grey10;
+        }
+
+        span{
+            font-size: 14px;
+        }
+    }
+    .usercn{
+        margin-top: 10px;
+        font-size: 16px;
+        .roboto(light);
+    }
+
+    ul.summary{
+        
+        li{
+            height: 50px;
+            line-height: 50px;
+            border-bottom: 1px solid @grey9;
+
+            .lleft,.lright{
+                color: @black;
+                font-size: 16px;
+            }
+            
+            .lleft{
+                float: left;
+            }
+            .lright{
+                float: right;
+            }
+
+            &:first-child{
+
+                .lleft,.lright{
+                    color: @grey11;
+                    font-size: 16px;
+                }
+                
+                border-bottom: 1px solid @grey10;   
+
+                .lleft{
+                    .roboto(light); 
+                }
+                .lright{
+                    font-size: 14px;
+                }
+            }
+
+            &:last-child{
+                .lleft,.lright{
+                    .roboto(bold);
+                }
+                border-bottom: none;
+            }
+        }
+
+    }
+
+    .greyback{
+        background-color: #eeeeee;
+        
+        textarea{
+            border: 1px solid #dddddf;
+            width: 100%;
+            resize: none;
+            height: 60px;
+            padding: 10px 15px;
+        }
+    }
+
+    .comment{
+        padding: 20px;
+        .title{
+            img,span{
+                float:left;
+            }
+            span{
+                font-size: 12px;
+                color:@grey10;
+                margin-top: 16px;
+
+                &.cn{
+                    .roboto(bold);
+                    margin: 16px 10px 0 10px;
+
+                }
+            }
+            img{
+                width:32px;
+                height: 32px;
+            }
+        }
+        p{
+            color:@grey11;
+            clear: both;
+            padding-top: 15px;
+        }
+
+        border-bottom:1px solid #ccccce;
+    }
+}
+
+#weeklist{
+    .datelistel{
+        color: #808086;
+        font-size: 14px;
+    }
+
+    .spendings{
+        margin-top: 60px;
+    }
+}

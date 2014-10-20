@@ -11,15 +11,25 @@ app.view.Week.List = Backbone.View.extend({
         }
         this.listenTo(this.weeks,"reset",this.render);
         this.weeks.fetch({reset: true});
+
+        var _this = this;
+        app.events.on("weeks:change" ,function(){
+            _this.weeks.fetch({reset: true});
+        });
     },
 
     events: {
-        "change #filterweeks" : "refreshFilter"
+        "change #filterweeks" : "refreshFilter",
+        "click [data-week]" : "viewWeek"
     },
     
     onClose: function(){
         // Remove events on close
         this.stopListening();
+
+        if (this.sendWeekView){
+            this.sendWeekView.close();
+        }
     },
     
     render: function() {
@@ -37,5 +47,16 @@ app.view.Week.List = Backbone.View.extend({
     refreshFilter: function(e){
         this.weeks._status = $(e.target).val();
         this.weeks.fetch({reset: true});
+    },
+
+    viewWeek: function(e){
+        e.preventDefault();
+
+        if (this.sendWeekView){
+            this.sendWeekView.close();
+        }
+
+        this.sendWeekView = new app.view.Week.Detail({id: $(e.target).closest("a").attr("data-week")});
+
     }
 });
