@@ -3,6 +3,6 @@ app.config = {
     "BASE_PATH" : "",
     "PAGE_SIZE" : 16,
     "SEARCH_TIMER" : 300,
-    "DEFAULT_PRICE_HOUR" : 27,
-    "START_DATE" : "2014-09-20"
+    "DEFAULT_PRICE_HOUR" : 27
+        
 };

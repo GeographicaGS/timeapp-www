@@ -104,7 +104,8 @@ app.view.Week.Detail = Backbone.View.extend({
 
         var newnote = app.input(this.$("textarea[name='newnote']").val());
         var _this = this;
-        $.post(app.config.API_URL + "/weeks/" + this.week.get("year") + "/" + this.week.get("week"),{note: newnote},function(){        
+        $.post(app.config.API_URL + "/weeks/" + this.week.get("year") + "/" + this.week.get("week"),{note: newnote},function(){       
+            console.log("timesheet:week:" + _this.week.get("year") + "_" + _this.week.get("week") + ":change"); 
             app.events.trigger("timesheet:week:" + _this.week.get("year") + "_" + _this.week.get("week") + ":change");
             _this.close();
         });

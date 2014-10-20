@@ -37,7 +37,11 @@ app.view.User.Week = Backbone.View.extend({
         });
 
         app.events.on("timesheet:week:" + this.year + "_" + this.week + ":change",function(){
-            _this.refresh();
+            _this.weekModel.fetch({
+                success: function(model,response){
+                    _this.refresh();
+                }
+            });
         });
 
         var _this = this;

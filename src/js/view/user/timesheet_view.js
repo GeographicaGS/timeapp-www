@@ -31,8 +31,8 @@ app.view.User.TimeSheet = Backbone.View.extend({
         var lastDate = new Date(d);
         lastDate.setDate(lastDate.getDate()-7);
         this.weeks.push(new app.view.User.Week({date:d, userprojects: this.userprojects, parentView:this}));
-        this.weeks.push(new app.view.User.Week({date:lastDate, userprojects: this.userprojects, parentView:this}));
-        this.$('#weeks').append(this.weeks[1].$el);
+        //this.weeks.push(new app.view.User.Week({date:lastDate, userprojects: this.userprojects, parentView:this}));
+        //this.$('#weeks').append(this.weeks[1].$el);
         this.$('#weeks').append(this.weeks[0].$el);
         this.cont = 1;
         return this;

@@ -43,7 +43,7 @@
     </div>
 
     <div class="greyback">
-        <% if (week.notes.length>1) { %>
+        <% if (week.notes.length>0) { %>
         <ul>
             <%_.each(week.notes,function(note){ %>
                 <li class="comment">
@@ -68,7 +68,9 @@
         </div>
         
         <div class="ctrlbuttons">
-            <% if (app.user.profile >= app.cons.ST_PROFILE_ADMIN) { %>
+            <%
+                console.log(app.user.profile);
+             if (app.user.profile >= app.cons.ST_PROFILE_ADMIN) { %>
 
                 <% if (week.status == app.cons.ST_WEEK_SENT || week.status == app.cons.ST_WEEK_REJECTED ) { %>
                 <a href="#" id="acceptweek" class="highlight">
@@ -82,9 +84,18 @@
                 </a>
                 <% } %>
 
+                <% if (app.user.id == week.id_user  && 
+                    (week.status == app.cons.ST_WEEK_PENDING || week.status == app.cons.ST_WEEK_REJECTED ) ) { %>
+                    <a href="#" id="sendweek" class="highlight">
+                        <lang>Send</lang>
+                    </a>
+                <% } %>
+
             <% } %>
 
-            <% if (app.user.profile < app.cons.ST_PROFILE_ADMIN) { %>
+            <% if (app.user.profile < app.cons.ST_PROFILE_ADMIN
+                    && (week.status == app.cons.ST_WEEK_PENDING || week.status == app.cons.ST_WEEK_REJECTED )
+                    ) { %>
                 <a href="#" id="sendweek" class="highlight">
                     <lang>Send</lang>
                 </a>
