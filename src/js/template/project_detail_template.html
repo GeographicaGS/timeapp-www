@@ -139,7 +139,7 @@
                             <!-- <span class="counter"></span> -->
                         </li>
                         <li class="col-xs-2 textright">
-                            <% if (project.hourly_rate == 1) { %>
+                            <% if (project.type_rate == 1) { %>
                             --
                             <% } else { %>
                             <span> <%= member.hourly_rate %></span>
@@ -157,7 +157,7 @@
             <div class="ctrl_buttons">
 
                 <a class="button mr" href="/<lang>lang</lang>/projects/form/<%= project.slug%>" jslink>
-                    <lang>Editar proyecto</lang>
+                    <lang>Edit project</lang>
                 </a>
 
                 <a class="cancel_link ml" href="#back" jslink>
@@ -198,8 +198,19 @@
                 </li>
 
             </ul>
+            <% if (project.type_rate=="1") { %>
+            <ul class="list fixprice mt20 row">
+                <li class="header col-xs-12">
+                    <lang>Hourly rate</lang>
+                </li>
+                <li class="col-xs-12 textright">
+                    <span class="<%= classbalance%>"><%= app.formatNumber(project.hourly_rate) %></span>
+                    <span class="euro"> &euro;</span>
+                </li>
+            </ul>
+            <% } %>
 
-             <ul class="list invoices">
+            <ul class="list invoices">
                 <li class="header">
                     <ul class="row">
                         <li class="col-xs-9">
