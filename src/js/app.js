@@ -280,7 +280,8 @@ app.input = function(str){
 
 app.formatNumber = function (n,decimals){
 
-    if (n===null){
+    console.log(n);
+    if (n===null || n===undefined){
         return "--";
     }
 
