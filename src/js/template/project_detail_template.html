@@ -114,18 +114,38 @@
                             <lang>Team</lang> (<%= project.members.length %>)
                         </li>
                         <li class="col-xs-2">
-                            &nbsp;
-                            <!-- <lang>Hours</lang> -->
+                            <lang>Hours</lang>
+                            
                         </li>
                         <li class="col-xs-2 textright">
-                            <lang>Hourly/rate</lang>
+                            <span><lang>Hourly/rate</lang></span>
+                            <% if (project.type_rate == 1) { %>
+                                <span class="euro" style="font-size:8px"><lang>(Fixed)</lang></span>
+                                
+                            <% } %>
+                            
+                            
                         </li>
                     </ul>
                 </li>
 
                 <% 
+                total_price_again = 0;
+                total_hours_again = 0;
+
                 _.each(project.members, function(member){ 
                     user = app.userlist.getUserByid(member.id_user);
+                    if (project.users_times.hasOwnProperty(member.id_user)){
+                        nhours = project.users_times[member.id_user];    
+                    }
+                    else{
+                        nhours = 0;
+                    }
+                    
+                    total_hours_again += nhours;
+                    price = project.type_rate == 1 ? parseFloat(project.hourly_rate) : parseFloat(member.hourly_rate);
+                    total_price_again += price * nhours;
+
                 %>
                 <li>
                     <ul class="row">
@@ -135,22 +155,33 @@
                         </li>
 
                         <li class="col-xs-2">
-                            &nbsp;
-                            <!-- <span class="counter"></span> -->
+                            <span class="counter"><%= app.formatNumber(nhours) %></span>
                         </li>
                         <li class="col-xs-2 textright">
                             <% if (project.type_rate == 1) { %>
-                            --
+                                <span> <%= project.hourly_rate %></span>
+                                
                             <% } else { %>
                             <span> <%= member.hourly_rate %></span>
                             <span class="euro"> &euro;</span>
                             <% } %>
                         </li>
-
                     </ul>
                 </li>
 
-            <% }); %>
+                <% }); %>
+                <li>
+                    <ul class="row">
+                        <li class="col-xs-8 bold">Total</li>
+                        <li class="col-xs-2 bold" >
+                            <%= total_hours_again %>
+                        </li>
+                        <li class="col-xs-2 textright bold" >
+                            <%= total_price_again %>
+                            <span class="euro"> &euro;</span>
+                        </li>
+                    </ul>
+                </li>
 
             </ul>
 
@@ -163,10 +194,7 @@
                 <a class="cancel_link ml" href="#back" jslink>
                     <lang>Cancel</lang>
                 </a>
-
             </div>
-
-
         </div>
 
         <%

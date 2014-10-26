@@ -3,7 +3,7 @@ app.view.Project.Detail = Backbone.View.extend({
     
     initialize: function(options) {
         
-        this.project = new app.model.Project({
+        this.project = new app.model.ProjectAdmin({
             slug: options.slug
         }); 
        

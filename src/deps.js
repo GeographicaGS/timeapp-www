@@ -30,6 +30,7 @@ deps.JS = {
 			// ---------------------
 			"js/model/user_model.js",
 			"js/model/project_model.js",
+			"js/model/project_admin_model.js",
 			"js/model/time_model.js",
 			"js/model/week_model.js",
 			"js/model/admin_week_model.js",
