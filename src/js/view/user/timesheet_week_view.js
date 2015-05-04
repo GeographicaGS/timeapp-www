@@ -107,7 +107,7 @@ app.view.User.Week = Backbone.View.extend({
 
         if (this.addTimeView) this.addTimeView.close();
 
-        var date = moment($e.attr("data-date"));
+        var date = moment.utc($e.attr("data-date"));
         var day = date.isoWeekday();
         var dayprojects = _.pluck(this.collection.toJSON()[day-1].projects,"id_project");
         var availableprojects = _.filter(this.userprojects.toJSON(),function (p) { return dayprojects.indexOf(p._id)==-1; });
