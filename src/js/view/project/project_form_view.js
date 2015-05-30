@@ -11,7 +11,6 @@ app.view.Project.Form = Backbone.View.extend({
             this.model = new app.model.Project({ "slug" : options.slug});
             this.model.fetch({
                 success : function(model){
-                    console.log(model.toJSON());
                     _this._initialize();
                 }
             });
@@ -45,6 +44,7 @@ app.view.Project.Form = Backbone.View.extend({
         "click #addmember" : "addMember",
         "change select[name='type_rate']": "changeTypeRate",
         "blur input[data-model]" : "inputToModel",
+        "blur select[name='status']" : "changeStatus",
         "click #save": "save",
         "blur .hourlyrate input[data-member-idx]" : "changeMemberHourlyRate",
         "click .remove_member": "deleteMember"
@@ -132,6 +132,14 @@ app.view.Project.Form = Backbone.View.extend({
         }
 
         this.model.set("type_rate",type);
+
+    },
+
+    changeStatus: function(e){
+        var $e = $(e.target),
+            status = $e.val();
+
+        this.model.set("status",status);
 
     },
 

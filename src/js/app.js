@@ -54,8 +54,6 @@ $(function () {
 
     app.resizeMe();
 
-    
-
 });
 
 app.resizeMe = function () {

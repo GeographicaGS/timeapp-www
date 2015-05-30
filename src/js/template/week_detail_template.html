@@ -4,9 +4,9 @@
         <h3>
             <%= sprintf("<lang>Semana %dº %d</lang>",week.week,week.year) %>
             <span class="date">
-                <%= moment(week.year+"-01-01").day("Monday").isoWeek(week.week).format("DD/MM/YYYY") %>
+                <%= moment(week.year+"-01-01").day(1).isoWeek(week.week).format("DD/MM/YYYY") %>
                 -
-                <%= moment(week.year+"-01-01").day("Sunday").isoWeek(week.week).format("DD/MM/YYYY") %>
+                <%= moment(week.year+"-01-01").day(7).isoWeek(week.week).format("DD/MM/YYYY") %>
 
             </span>
         </h3>
@@ -70,6 +70,7 @@
         <div class="ctrlbuttons">
             <%
                 console.log(app.user.profile);
+                
              if (app.user.profile >= app.cons.ST_PROFILE_ADMIN) { %>
 
                 <% if (week.status == app.cons.ST_WEEK_SENT || week.status == app.cons.ST_WEEK_REJECTED ) { %>

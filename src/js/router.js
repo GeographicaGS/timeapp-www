@@ -14,7 +14,7 @@ app.router = Backbone.Router.extend({
             "users/week" : "week",
             "projects/form(/:slug)": "projectForm",
             "projects" : "projects",
-            "projects/:slug" : "projectDetail",
+            "projects/:slug(/:weekstart/:weekend)" : "projectDetail",
             "weeks/me(/:status)" : "userWeeks",
             //"weeks/detail/:id" : "weekDetail",
             "weeks(/:status)" : "weeks",
@@ -65,10 +65,14 @@ app.router = Backbone.Router.extend({
         }));
     },
 
-    projectDetail: function(slug){
+    projectDetail: function(slug,weekstart,weekend){
         app.events.trigger("menu","projects");
+
+
         app.showView(new app.view.Project.Detail({
-            slug:slug
+            slug:slug,
+            weekstart : weekstart,
+            weekend : weekend
         }));
     },
 

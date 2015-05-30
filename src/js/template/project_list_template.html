@@ -13,8 +13,8 @@
                 </li>
                 <li class="col-xs-2">
                     <select name="status">
-                        <option><lang>Active</lang></option>
-                        <option><lang>Archive</lang></option>
+                        <option value=1 <%= status == 1 ? "selected" : ""%>><lang>Active</lang></option>
+                        <option value=2 <%= status == 2 ? "selected" : ""%>><lang>Archive</lang></option>
                     </select>
                 </li>
             </ul>

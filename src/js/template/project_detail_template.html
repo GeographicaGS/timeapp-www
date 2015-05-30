@@ -6,16 +6,34 @@
             <h2 class="col-xs-12">
                 <%= project.name%>
             </h2>
-            <div class="col-xs-12 hourssum mb30">
+            <div class="col-xs-12 hourssum">
                 <label><lang>Horas consumidas / Horas disponibles</lang></label>
                 <span class="counter"><%= app.formatNumber(project.total_hours,0) %></span>
             </div>
+            <div class="col-xs-12 hourssum mt mb30">
+                <label><lang>Estado:</lang></label>
+                <span ><%= project.status==1 ? "Active" : "Archive" %></span>
+            </div>
         </div>
+        
     </div>
 </section>
 
 
 <div class="container" >
+    <div class="row date_filter" >
+        
+        <span>Desde:</span>
+        <input type="week" name="date_filter_start" value="<%= weekstart ? weekstart.replace("-","-W") : "" %>" />
+        <span>Hasta:</span>
+        <input type="week" name="date_filter_end" value="<%= weekend ? weekend.replace("-","-W") : "" %>" />
+        
+
+
+        <a class="button mr" href="#" id="ctrl_date_filter">
+            <lang>Aplicar Filtro</lang>
+        </a>
+    </div>
 
     <div class="row">
         <div class="col-xs-8  ">
@@ -38,7 +56,7 @@
                                 <li class="col-xs-9">
                                     <%= !b.desc ? "<lang>Initial budget</lang>" : b.desc %>
                                     -
-                                    <span class="date"><%= moment(b.date).format("DD/MM/YYYY HH:MM") %></span>
+                                    <span class="date"><%= moment(b.date).format("DD/MM/YYYY") %></span>
                                 </li>
                                 <li class="col-xs-3 textright"><%= parseInt(b.amount) %><span class="euro"> &euro;</span></li>
                             </ul>
@@ -110,7 +128,7 @@
             <ul class="list listusers">
                 <li class="header">
                     <ul class="row">
-                        <li class="col-xs-8">
+                        <li class="col-xs-6">
                             <lang>Team</lang> (<%= project.members.length %>)
                         </li>
                         <li class="col-xs-2">
@@ -119,6 +137,15 @@
                         </li>
                         <li class="col-xs-2 textright">
                             <span><lang>Hourly/rate</lang></span>
+                            <% if (project.type_rate == 1) { %>
+                                <span class="euro" style="font-size:8px"><lang>(Fixed)</lang></span>
+                                
+                            <% } %>
+                            
+                            
+                        </li>
+                         <li class="col-xs-2 textright">
+                            <span><lang>Total price</lang></span>
                             <% if (project.type_rate == 1) { %>
                                 <span class="euro" style="font-size:8px"><lang>(Fixed)</lang></span>
                                 
@@ -146,10 +173,14 @@
                     price = project.type_rate == 1 ? parseFloat(project.hourly_rate) : parseFloat(member.hourly_rate);
                     total_price_again += price * nhours;
 
+                    if (nhours==0){
+                        return;
+                    }
+
                 %>
                 <li>
                     <ul class="row">
-                        <li class="col-xs-8">    
+                        <li class="col-xs-6">    
                             <img class="avatar"src="<%= user.gravatar() %>" height="35px" width="35px"/>
                             <span class="username"><%= user.cn() %></span>
                         </li>
@@ -160,9 +191,19 @@
                         <li class="col-xs-2 textright">
                             <% if (project.type_rate == 1) { %>
                                 <span> <%= project.hourly_rate %></span>
-                                
+                                <span class="euro"> &euro;</span>
                             <% } else { %>
                             <span> <%= member.hourly_rate %></span>
+                            <span class="euro"> &euro;</span>
+                            <% } %>
+                        </li>
+
+                         <li class="col-xs-2 textright">
+                            <% if (project.type_rate == 1) { %>
+                                <span> <%=  app.formatNumber(project.hourly_rate *nhours)%></span>
+                                <span class="euro"> &euro;</span>
+                            <% } else { %>
+                            <span> <%= app.formatNumber(member.hourly_rate*nhours) %></span>
                             <span class="euro"> &euro;</span>
                             <% } %>
                         </li>
@@ -172,12 +213,13 @@
                 <% }); %>
                 <li>
                     <ul class="row">
-                        <li class="col-xs-8 bold">Total</li>
+                        <li class="col-xs-6 bold">Total</li>
                         <li class="col-xs-2 bold" >
-                            <%= total_hours_again %>
+                            <%= app.formatNumber(total_hours_again) %>
                         </li>
+                        <li class="col-xs-2" ></li>
                         <li class="col-xs-2 textright bold" >
-                            <%= total_price_again %>
+                            <%= app.formatNumber(total_price_again) %>
                             <span class="euro"> &euro;</span>
                         </li>
                     </ul>

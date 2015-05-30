@@ -21,7 +21,7 @@
         </div>
 
     </div>
-   
+
     <div class="row">
         
         <% 
@@ -46,6 +46,16 @@
             <input data-model type="text" name="hourly_rate"  min="0" value="<%= model.hourly_rate %>" 
                 <%= model.type_rate == 2 ? "style='display:none'" : ""%> />   
             
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-x6-12 col-md-3">
+            <label class="mt"><lang>Estado</lang></label> 
+            <select name="status">
+                <option value=1 <%= model.status == 1 ? "selected" : ""%>><lang>Active</lang></option>
+                <option value=2 <%= model.status == 2 ? "selected" : ""%>><lang>Archive</lang></option>
+            </select>
         </div>
     </div>
 

@@ -1,10 +1,18 @@
 app.view.Project.Detail = Backbone.View.extend({
     _template : _.template( $('#project_detail_template').html() ),
     
+    __weekstart : null,
+    __weekend : null,
+
     initialize: function(options) {
         
+        this.__weekstart = options.weekstart ? options.weekstart : null;
+        this.__weekend = options.weekend ? options.weekend : null;
+
         this.project = new app.model.ProjectAdmin({
-            slug: options.slug
+            slug: options.slug,
+            weekstart: this.__weekstart,
+            weekend : this.__weekend
         }); 
        
         this._fetchProject();
@@ -30,7 +38,8 @@ app.view.Project.Detail = Backbone.View.extend({
         "click a[data-spending]" : "editspending",
         "click #addinvoice" : "addinvoice",
         "click a[data-invoice]" : "editinvoice",
-        "click a[data-budget]" : "editbudget"
+        "click a[data-budget]" : "editbudget",
+        "click a#ctrl_date_filter" : "applyDateFilter"
     },
     
     onClose: function(){
@@ -54,14 +63,26 @@ app.view.Project.Detail = Backbone.View.extend({
 
     },
     
+    // render: function() {
+    //     this.$el.html(this._template({
+    //         project: this.project.toJSON()
+    //     }));
+      
+    //     return this;
+    // },
+
+
     render: function() {
+
+        // overwrite aamounts 
         this.$el.html(this._template({
-            project: this.project.toJSON()
+            project: this.project.toJSON(),
+            weekstart: this.__weekstart,
+            weekend: this.__weekend
         }));
       
         return this;
     },
-
     addspending: function(e){
         e.preventDefault();
 
@@ -135,6 +156,24 @@ app.view.Project.Detail = Backbone.View.extend({
             id : $(e.target).closest("a").attr("data-budget"),
             id_project: this.project.id
         });
+    },
+
+    applyDateFilter: function(e){
+        e.preventDefault();
+
+        var date_start = this.$("input[name='date_filter_start']").val();
+        var date_end = this.$("input[name='date_filter_end']").val();
+
+        if (!date_start || !date_end){
+            alert("Please select both dates");
+        }
+        else{
+            date_start = date_start.replace("W","");
+            date_end = date_end.replace("W","");
+            app.router.navigate("/projects/" + this.project.get("slug") + "/" + date_start + "/" + date_end , {trigger: true});
+        }
+
+       
     }
 
 });
