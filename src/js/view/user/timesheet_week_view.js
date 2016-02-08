@@ -77,6 +77,8 @@ app.view.User.Week = Backbone.View.extend({
         var weektime = this.collection.toJSON(),
             maxweekhours = _.max(weektime, function(d){ return d.total_hours; }).total_hours;
 
+        var dataweek = this.weekModel.toJSON();
+        app.getBeginWeekDateFormated(dataweek.year,dataweek.week);
         this.$el.html(this._template({
             date:this.date,
             weektime: weektime,

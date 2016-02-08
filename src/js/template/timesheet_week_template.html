@@ -1,7 +1,6 @@
 <%
     year = date.isoWeekYear();
     week = date.isoWeek();
-    
 %>
 
 <div class="weekheader">
@@ -12,9 +11,9 @@
         	<div class="weekLine"></div>
         	<p class="weekNumber">
                 <strong>SEMANA <%= week  %></strong> <%= year %>.
-                <%= moment(dataweek.year+"-01-01").day(1).isoWeek(dataweek.week).format("DD/MM/YYYY") %>
+                <%= app.getBeginWeekDateFormated(dataweek.year,dataweek.week) %>
                 -
-                <%= moment(dataweek.year+"-01-01").day(7).isoWeek(dataweek.week).format("DD/MM/YYYY") %>
+                <%= app.getEndWeekDateFormated(dataweek.year,dataweek.week) %>
 
                 <span data-week-status='<%= dataweek.status %>'>(<%= app.weekStatusToStr(dataweek.status) %>)</span>
                 <% 

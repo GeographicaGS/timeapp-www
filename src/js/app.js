@@ -377,3 +377,39 @@ app.escapeHtml = function(text) {
 
   return text.replace(/[&<>"']/g, function(m) { return map[m]; });
 }
+
+app.getWeekDate = function(year,week){
+  year = parseInt(year);
+  week = parseInt(week);
+  var weekIdx = 1;
+  // Finding first monday
+  if (moment(year + "-01-01").isoWeekday(weekIdx).year() != year){
+    weekIdx = 8;
+  }
+
+  return moment(year + "-01-01").isoWeekday(weekIdx).isoWeek(week);
+}
+
+app.getBeginWeekDate = function(year,week){
+  year = parseInt(year);
+  week = parseInt(week);
+  var weekIdx = 1;
+  // Finding first monday
+  if (moment(year + "-01-01").isoWeekday(weekIdx).year() != year){
+    weekIdx = 8;
+  }
+
+  return moment(year + "-01-01").isoWeekday(weekIdx).isoWeek(week);
+}
+
+app.getEndWeekDate = function(year,week){
+  return this.getBeginWeekDate(year,week).day(7);
+}
+
+app.getBeginWeekDateFormated = function(year,week){
+  return this.getBeginWeekDate(year,week).format("DD/MM/YYYY");
+}
+
+app.getEndWeekDateFormated = function(year,week){
+  return this.getEndWeekDate(year,week).format("DD/MM/YYYY");
+}

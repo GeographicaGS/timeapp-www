@@ -43,9 +43,9 @@
                                 <%= week.week + "º " + week.year %>
                                 <span class="datelistel">
                                     (
-                                    <%= moment(week.year+"-01-01").day(1).isoWeek(week.week).format("DD/MM/YYYY") %>
+                                    <%= app.getBeginWeekDateFormated(week.year,week.week) %>
                                     -
-                                    <%= moment(week.year+"-01-01").day(7).isoWeek(week.week).format("DD/MM/YYYY") %>
+                                    <%= app.getEndWeekDateFormated(week.year,week.week) %>
                                     )
                                 </span>
                             </li>
