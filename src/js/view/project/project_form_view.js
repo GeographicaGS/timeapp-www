@@ -1,7 +1,7 @@
 app.view.Project.Form = Backbone.View.extend({
     _template : _.template( $('#project_form_template').html() ),
     _templateMembers: _.template( $('#project_form_members_template').html() ),
-    
+
     initialize: function(options) {
 
         this.datalist = new Backbone.Collection(app.userlist.models);
@@ -21,7 +21,7 @@ app.view.Project.Form = Backbone.View.extend({
             this.model.set("members",new Backbone.Collection([]));
             this._initialize();
         }
-        
+
     },
 
     _initialize: function(){
@@ -47,9 +47,10 @@ app.view.Project.Form = Backbone.View.extend({
         "blur select[name='status']" : "changeStatus",
         "click #save": "save",
         "blur .hourlyrate input[data-member-idx]" : "changeMemberHourlyRate",
-        "click .remove_member": "deleteMember"
+        "click .remove_member": "deleteMember",
+        "click .set_manager": "setMemberAsManager"
     },
-    
+
     onClose: function(){
         // Remove events on close
         this.stopListening();
@@ -75,7 +76,7 @@ app.view.Project.Form = Backbone.View.extend({
 
         return this;
     },
-    
+
     render: function() {
         this.$el.html(this._template({
             model : this.model.toJSON(),
@@ -152,7 +153,7 @@ app.view.Project.Form = Backbone.View.extend({
 
     save: function(e){
         e.preventDefault();
-       
+
         if (this.model.isValid(true)){
             // Save on server
             this.model.save(null,{
@@ -188,5 +189,20 @@ app.view.Project.Form = Backbone.View.extend({
 
             members.remove(member);
         }
+    },
+
+    setMemberAsManager: function(e){
+      e.preventDefault();
+
+      var r = confirm("Are you sure?");
+      
+      if (r){
+          var $e = $(e.target),
+              idx = $e.attr("data-member-idx"),
+              members = this.model.get("members"),
+              member = members.at(idx);
+
+          this.model.setMemberAsManager(member);
+      }
     }
 });

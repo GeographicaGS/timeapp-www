@@ -8,9 +8,9 @@ app.model.Project = Backbone.Model.extend({
     toJSON : function(){
         var json = Backbone.Model.prototype.toJSON.call(this);
         if (json.members){
-            json.members = json.members.toJSON();    
+            json.members = json.members.toJSON();
         }
-        
+
         return json;
     },
 
@@ -19,17 +19,17 @@ app.model.Project = Backbone.Model.extend({
             name: {
                 required: true
             }
-        }      
+        }
     },
 
     url: function(){
         if (this.get("slug")){
-            return this.urlRoot() + "/" + this.get("slug");    
+            return this.urlRoot() + "/" + this.get("slug");
         }
         else{
             return this.urlRoot();
         }
-        
+
     },
     urlRoot: function() {
         return app.config.API_URL + "/projects";
@@ -38,5 +38,9 @@ app.model.Project = Backbone.Model.extend({
     parse: function(res, options){
         res.members = new Backbone.Collection(res.members);
         return res;
+    },
+
+    setMemberAsManager: function(member) {
+      this.set('manager', member.get('id_user'));
     }
 });

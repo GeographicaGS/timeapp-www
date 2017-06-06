@@ -5,22 +5,25 @@
                 <li class="col-xs-4">
                     <input type="text" class="searchlist" name="search" placeholder="<lang>Proyecto</lang>" />
                 </li>
-                <li class="col-xs-3">
+                <li class="col-xs-2">
                     <span class="headercol">Expended hours/available.</span>
                 </li>
-                <li class="col-xs-3">
+                <li class="col-xs-2">
                     <span class="headercol"><lang>Balance</lang> &euro;</span>
                 </li>
-                <li class="col-xs-2">
+                <li class="col-xs-1">
                     <select name="status">
                         <option value=1 <%= status == 1 ? "selected" : ""%>><lang>Active</lang></option>
                         <option value=2 <%= status == 2 ? "selected" : ""%>><lang>Archive</lang></option>
                     </select>
                 </li>
+                <li class="col-xs-3">
+                  <span class="headercol"><lang>Project manager</lang></span>
+                </li>
             </ul>
         </li>
 
-    <% _.each(projects,function(p){ 
+    <% _.each(projects,function(p){
         %>
         <li>
             <a href="/<lang>lang</lang>/projects/<%= p.slug %>" jslink>
@@ -28,16 +31,19 @@
                     <li class="col-xs-4">
                         <%= p.name %>
                     </li>
-                    <li class="col-xs-3">
+                    <li class="col-xs-2">
                        <span class="counter">
                            <%= app.formatNumber(p.total_hours,0) %>
                        </span>
                     </li>
-                    <li class="col-xs-3">
+                    <li class="col-xs-2">
                         <%= app.formatNumber(p.total_budget - p.total_hours_price - p.total_spendings,0) %>
                     </li>
-                    <li class="col-xs-2">
+                    <li class="col-xs-1">
                         <lang>Active</lang>
+                    </li>
+                    <li class="col-xs-2">
+                      <%= p.manager && app.userlist.getUserByid(p.manager) ? app.userlist.getUserByid(p.manager).cn() : '--' %>
                     </li>
                 </ul>
             </a>
