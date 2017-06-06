@@ -10,24 +10,28 @@
                 <label><lang>Horas consumidas / Horas disponibles</lang></label>
                 <span class="counter"><%= app.formatNumber(project.total_hours,0) %></span>
             </div>
-            <div class="col-xs-12 hourssum mt mb30">
+            <div class="col-xs-12 hourssum mt">
                 <label><lang>Estado:</lang></label>
                 <span ><%= project.status==1 ? "Active" : "Archive" %></span>
             </div>
+            <div class="col-xs-12 hoursum mt mb30">
+                <label><lang>Gestor de proyecto</lang>:</label>
+                <span><%= project.manager && app.userlist.getUserByid(project.manager) ? app.userlist.getUserByid(project.manager).cn() : '--' %></span>
+            </div>
         </div>
-        
+
     </div>
 </section>
 
 
 <div class="container" >
     <div class="row date_filter" >
-        
+
         <span>Desde:</span>
         <input type="week" name="date_filter_start" value="<%= weekstart ? weekstart.replace("-","-W") : "" %>" />
         <span>Hasta:</span>
         <input type="week" name="date_filter_end" value="<%= weekend ? weekend.replace("-","-W") : "" %>" />
-        
+
 
 
         <a class="button mr" href="#" id="ctrl_date_filter">
@@ -97,7 +101,7 @@
                             <ul class="row">
                                 <li class="col-xs-9">
                                     <span class="red"><%= sp.desc %></span>
-                                    - 
+                                    -
                                     <span class="date red">
                                         <%= moment(sp.date).format("DD/MM/YYYY") %>
                                     </span>
@@ -133,42 +137,42 @@
                         </li>
                         <li class="col-xs-2">
                             <lang>Hours</lang>
-                            
+
                         </li>
                         <li class="col-xs-2 textright">
                             <span><lang>Hourly/rate</lang></span>
                             <% if (project.type_rate == 1) { %>
                                 <span class="euro" style="font-size:8px"><lang>(Fixed)</lang></span>
-                                
+
                             <% } %>
-                            
-                            
+
+
                         </li>
                          <li class="col-xs-2 textright">
                             <span><lang>Total price</lang></span>
                             <% if (project.type_rate == 1) { %>
                                 <span class="euro" style="font-size:8px"><lang>(Fixed)</lang></span>
-                                
+
                             <% } %>
-                            
-                            
+
+
                         </li>
                     </ul>
                 </li>
 
-                <% 
+                <%
                 total_price_again = 0;
                 total_hours_again = 0;
 
-                _.each(project.members, function(member){ 
+                _.each(project.members, function(member){
                     user = app.userlist.getUserByid(member.id_user);
                     if (project.users_times.hasOwnProperty(member.id_user)){
-                        nhours = project.users_times[member.id_user];    
+                        nhours = project.users_times[member.id_user];
                     }
                     else{
                         nhours = 0;
                     }
-                    
+
                     total_hours_again += nhours;
                     price = project.type_rate == 1 ? parseFloat(project.hourly_rate) : parseFloat(member.hourly_rate);
                     total_price_again += price * nhours;
@@ -180,9 +184,9 @@
                 %>
                 <li>
                     <ul class="row">
-                        <li class="col-xs-6">    
+                        <li class="col-xs-6">
                             <img class="avatar"src="<%= user.gravatar() %>" height="35px" width="35px"/>
-                            <span class="username"><%= user.cn() %></span>
+                            <span class="username"><%= user.cn() %><%= user.id === project.manager ? ' 😎' : '' %></span>
                         </li>
 
                         <li class="col-xs-2">
